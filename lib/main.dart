@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 
 import 'package:firebase_core/firebase_core.dart';
+import 'package:home_sense/services/location_service.dart';
 import 'package:home_sense/theme/theme.dart';
 import 'package:home_sense/ui/pages/home_page.dart';
 import 'package:home_sense/ui/widgets/auth_checker.dart';
+import 'package:provider/provider.dart';
+import 'core/di/configure_providers.dart';
 import 'firebase_options.dart';
 
 Future<void> main() async {
@@ -11,23 +14,33 @@ Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(const MyApp());
+
+  final data = await ConfigureProviders.createDependencyTree();
+
+  final locationService = LocationService();
+  // locationService.startLocationUpdates();
+
+  runApp(MyApp(data: data));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({super.key, required this.data});
+
+  final ConfigureProviders data;
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      debugShowCheckedModeBanner: false,
-      theme: const MaterialTheme(TextTheme()).light(),
-      darkTheme: const MaterialTheme(TextTheme()).dark(),
-      highContrastDarkTheme:
-          const MaterialTheme(TextTheme()).darkHighContrast(),
-      highContrastTheme: const MaterialTheme(TextTheme()).lightHighContrast(),
-      home: const AuthChecker(),
+
+    MaterialTheme theme = const MaterialTheme(TextTheme());
+    return MultiProvider(
+      providers: data.providers,
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Aula',
+        theme: theme.light(),
+        darkTheme: theme.dark(),
+        home: const AuthChecker(),
+      ),
     );
   }
 }

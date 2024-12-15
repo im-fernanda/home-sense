@@ -1,4 +1,5 @@
 import 'package:home_sense/services/auth_service.dart';
+import 'package:home_sense/services/location_service.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 

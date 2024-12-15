@@ -60,4 +60,5 @@ class DefaultFirebaseOptions {
     databaseURL: 'https://home-sense-4c730-default-rtdb.firebaseio.com',
     storageBucket: 'home-sense-4c730.firebasestorage.app',
   );
+
 }
