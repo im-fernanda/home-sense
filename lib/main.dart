@@ -30,15 +30,14 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-    MaterialTheme theme = const MaterialTheme(TextTheme());
     return MultiProvider(
       providers: data.providers,
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'Aula',
-        theme: theme.light(),
-        darkTheme: theme.dark(),
+        title: 'House Sense',
+        theme: ThemeData.light(),
+        darkTheme: ThemeData.dark(),
+        themeMode: ThemeMode.system,
         home: const AuthChecker(),
       ),
     );

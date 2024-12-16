@@ -19,47 +19,61 @@ class RoomCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 100,
-      child: GestureDetector(
-        child: Card(
-          margin: const EdgeInsets.only(bottom: 16.0),
-          elevation: 4,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
+    return GestureDetector(
+      onTap: () {
+        navigateToRoom(rooms[index], context);
+      },
+      child: Container(
+        margin: const EdgeInsets.only(bottom: 16),
+        height: 180, // Altura do card
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(16),
+          image: DecorationImage(
+            image: AssetImage(
+                'assets/images/${rooms[index].toLowerCase()}_img.jpg'), // Adapte os nomes das imagens ao padrão
+            fit: BoxFit.cover,
           ),
-          color: Theme.of(context).colorScheme.secondaryContainer,
-          child: Center(
-            child: ListTile(
-              title: Text(
-                rooms[index],
-              ),
-              leading: Icon(getRoomIcon(rooms[index]), size: 32),
+        ),
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(16),
+            gradient: LinearGradient(
+              colors: [
+                Colors.black.withOpacity(0.6),
+                Colors.transparent,
+              ],
+              begin: Alignment.bottomCenter,
+              end: Alignment.topCenter,
+            ),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Text(
+                  rooms[index],
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const SizedBox(height: 4),
+                const Text(
+                  'Dispositivos conectados: 4', // Informação adicional
+                  style: TextStyle(
+                    color: Colors.white70,
+                    fontSize: 14,
+                  ),
+                ),
+              ],
             ),
           ),
         ),
-        onTap: () {
-          navigateToRoom(rooms[index], context);
-        },
       ),
     );
-  }
-}
-
-IconData getRoomIcon(String room) {
-  switch (room) {
-    case "Sala":
-      return Icons.chair_outlined;
-    case "Quarto":
-      return Icons.king_bed_outlined;
-    case "Cozinha":
-      return Icons.kitchen_outlined;
-    case "Banheiro":
-      return Icons.bathtub_outlined;
-    case "Garagem":
-      return Icons.garage_outlined;
-    default:
-      return Icons.error_outline;
   }
 }
 

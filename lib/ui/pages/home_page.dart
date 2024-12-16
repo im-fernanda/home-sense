@@ -13,14 +13,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
-  final List<String> rooms = [
-    "Sala",
-    "Quarto",
-    "Cozinha",
-    "Banheiro",
-    "Garagem",
-    "Área externa"
-  ];
+
   static final List<Widget> _options = <Widget>[
     const HomePageContent(),
     const RotinasPage(),
@@ -57,6 +50,7 @@ class _HomePageState extends State<HomePage> {
 }
 
 // Componente para a página inicial (apenas os cards de salas)
+
 class HomePageContent extends StatelessWidget {
   const HomePageContent({super.key});
 
@@ -68,8 +62,9 @@ class HomePageContent extends StatelessWidget {
       "Cozinha",
       "Banheiro",
       "Garagem",
-      "Àrea externa"
+      "Externo"
     ];
+
     return ListView.builder(
       padding: const EdgeInsets.all(16.0),
       itemCount: rooms.length,
