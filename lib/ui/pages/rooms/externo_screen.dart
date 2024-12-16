@@ -1,36 +1,35 @@
 import 'package:flutter/material.dart';
 
-class CozinhaScreen extends StatefulWidget {
-  const CozinhaScreen({super.key});
+class ExternoScreen extends StatefulWidget {
+  const ExternoScreen({super.key});
 
   @override
-  State<CozinhaScreen> createState() => _CozinhaScreenState();
+  State<ExternoScreen> createState() => _ExternoScreenState();
 }
 
-class _CozinhaScreenState extends State<CozinhaScreen> {
+class _ExternoScreenState extends State<ExternoScreen> {
   // Estados para os switches
-  bool lampadaEnabled = false;
-  String temperatura = '22°C';
-  String umidade = '60%';
+  bool ledEnabled = false;
+  String luminosidadeValue = '50%'; // Exemplo de valor de luminosidade
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Cozinha"),
+        title: const Text("Externo"),
         backgroundColor: Theme.of(context).colorScheme.primaryContainer,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
           children: [
-            // Imagem do ambiente
+            // Imagem do ambiente externo
             Container(
               height: 200,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(16),
                 image: const DecorationImage(
-                  image: AssetImage('assets/images/cozinha_img.jpg'),
+                  image: AssetImage('assets/images/externo_img.jpg'),
                   fit: BoxFit.cover,
                 ),
               ),
@@ -44,25 +43,20 @@ class _CozinhaScreenState extends State<CozinhaScreen> {
                 crossAxisSpacing: 16,
                 children: [
                   _buildDeviceCard(
-                    title: 'Lâmpada',
+                    title: 'LED',
                     value: '', // Deixe o valor vazio ou removido
                     icon: Icons.lightbulb,
-                    switchValue: lampadaEnabled,
+                    switchValue: ledEnabled,
                     onSwitchChanged: (value) {
                       setState(() {
-                        lampadaEnabled = value;
+                        ledEnabled = value;
                       });
                     },
                   ),
                   _buildDeviceCard(
-                    title: 'Temperatura',
-                    value: temperatura,
-                    icon: Icons.thermostat,
-                  ),
-                  _buildDeviceCard(
-                    title: 'Umidade',
-                    value: umidade,
-                    icon: Icons.water_drop,
+                    title: 'Luminosidade',
+                    value: luminosidadeValue, // Valor de luminosidade
+                    icon: Icons.wb_sunny,
                   ),
                 ],
               ),

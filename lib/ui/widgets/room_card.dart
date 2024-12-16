@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../pages/rooms/banheiro_screen.dart';
 import '../pages/rooms/cozinha_screen.dart';
+import '../pages/rooms/externo_screen.dart';
 import '../pages/rooms/garagem_screen.dart';
 import '../pages/home_page.dart';
 import '../pages/rooms/quarto_screen.dart';
@@ -107,6 +108,13 @@ void navigateToRoom(String room, BuildContext context) {
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => GaragemScreen()),
+      );
+      break;
+
+    case "Externo":
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => ExternoScreen()),
       );
       break;
     default:
