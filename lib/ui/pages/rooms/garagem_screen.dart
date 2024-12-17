@@ -44,7 +44,8 @@ class _GaragemScreenState extends State<GaragemScreen> {
                 children: [
                   _buildDeviceCard(
                     title: 'LED',
-                    value: '', // Deixe o valor vazio ou removido
+                    value: '',
+                    // Deixe o valor vazio ou removido
                     icon: Icons.lightbulb,
                     switchValue: ledEnabled,
                     onSwitchChanged: (value) {
@@ -55,7 +56,8 @@ class _GaragemScreenState extends State<GaragemScreen> {
                   ),
                   _buildDeviceCard(
                     title: 'Abrir Portão',
-                    value: '', // Não há valor para esse dispositivo
+                    value: '',
+                    // Não há valor para esse dispositivo
                     icon: Icons.door_front_door,
                     switchValue: portaoAberto,
                     onSwitchChanged: (value) {
@@ -66,10 +68,11 @@ class _GaragemScreenState extends State<GaragemScreen> {
                   ),
                   _buildDeviceCard(
                     title: 'Fechar Portão',
-                    value: '', // Não há valor para esse dispositivo
+                    value: '',
+                    // Não há valor para esse dispositivo
                     icon: Icons.lock_open,
-                    switchValue:
-                        !portaoAberto, // Controle se o portão está aberto ou fechado
+                    switchValue: !portaoAberto,
+                    // Controle se o portão está aberto ou fechado
                     onSwitchChanged: (value) {
                       setState(() {
                         portaoAberto = !value;
@@ -99,28 +102,37 @@ class _GaragemScreenState extends State<GaragemScreen> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          // Ícone centralizado
           Icon(icon, size: 40, color: Colors.green),
           const SizedBox(height: 10),
+          // Título do dispositivo
           Text(
             title,
             style: const TextStyle(color: Colors.grey),
           ),
           const SizedBox(height: 5),
-          if (switchValue != null && onSwitchChanged != null) ...[
-            Switch(
-              value: switchValue,
-              onChanged: onSwitchChanged,
-            ),
-          ],
-          // Exibindo o valor abaixo do título
-          const SizedBox(height: 2),
-          Text(
-            value,
-            style: const TextStyle(
-              color: Colors.black,
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-            ),
+          // Linha contendo o Switch e o valor
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              // Switch somente para dispositivos com switch
+              if (switchValue != null && onSwitchChanged != null) ...[
+                Switch(
+                  value: switchValue,
+                  onChanged: onSwitchChanged,
+                ),
+              ],
+              // Exibindo o valor (Temperatura, Umidade, etc.)
+              Text(
+                value,
+                style: const TextStyle(
+                  color: Colors.black,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
           ),
         ],
       ),

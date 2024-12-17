@@ -35,7 +35,10 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'House Sense',
-        theme: ThemeData.light(),
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepOrange),
+          useMaterial3: true,
+        ),
         darkTheme: ThemeData.dark(),
         themeMode: ThemeMode.system,
         home: const AuthChecker(),

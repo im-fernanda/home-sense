@@ -75,28 +75,37 @@ class _BanheiroScreenState extends State<BanheiroScreen> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          // Ícone centralizado
           Icon(icon, size: 40, color: Colors.green),
           const SizedBox(height: 10),
+          // Título do dispositivo
           Text(
             title,
             style: const TextStyle(color: Colors.grey),
           ),
           const SizedBox(height: 5),
-          if (switchValue != null && onSwitchChanged != null) ...[
-            Switch(
-              value: switchValue,
-              onChanged: onSwitchChanged,
-            ),
-          ],
-          // Exibindo o valor abaixo do título
-          const SizedBox(height: 2),
-          Text(
-            value,
-            style: const TextStyle(
-              color: Colors.black,
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-            ),
+          // Linha contendo o Switch e o valor
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              // Switch somente para dispositivos com switch
+              if (switchValue != null && onSwitchChanged != null) ...[
+                Switch(
+                  value: switchValue,
+                  onChanged: onSwitchChanged,
+                ),
+              ],
+              // Exibindo o valor (Temperatura, Umidade, etc.)
+              Text(
+                value,
+                style: const TextStyle(
+                  color: Colors.black,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
           ),
         ],
       ),

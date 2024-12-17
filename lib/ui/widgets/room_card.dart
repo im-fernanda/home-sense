@@ -27,13 +27,13 @@ class RoomCard extends StatelessWidget {
         navigateToRoom(rooms[index], context);
       },
       child: Container(
-        margin: const EdgeInsets.only(bottom: 16),
-        height: 180, // Altura do card
+        margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        height: MediaQuery.of(context).size.height * 0.2, // Altura do card
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16),
           image: DecorationImage(
             image: AssetImage(
-                'assets/images/${rooms[index].toLowerCase()}_img.jpg'), // Adapte os nomes das imagens ao padrão
+                'assets/images/${rooms[index].toLowerCase()}_img.jpg'),
             fit: BoxFit.cover,
           ),
         ),
@@ -65,10 +65,10 @@ class RoomCard extends StatelessWidget {
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  'Dispositivos conectados: ${dispositivosConectados[index]}', // Número dinâmico
+                  'Dispositivos conectados: ${dispositivosConectados[index]}',
                   style: const TextStyle(
                     color: Colors.white70,
-                    fontSize: 14,
+                    fontSize: 16,
                   ),
                 ),
               ],
