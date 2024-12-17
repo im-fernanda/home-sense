@@ -65,11 +65,23 @@ class HomePageContent extends StatelessWidget {
       "Externo"
     ];
 
+    final List<int> dispositivosConectados = [
+      3, // Sala
+      4, // Quarto
+      3, // Cozinha
+      1, // Banheiro
+      1, // Garagem
+      2, // Externo
+    ];
+
     return ListView.builder(
-      padding: const EdgeInsets.all(16.0),
       itemCount: rooms.length,
       itemBuilder: (context, index) {
-        return RoomCard(rooms: rooms, index: index);
+        return RoomCard(
+          rooms: rooms,
+          index: index,
+          dispositivosConectados: dispositivosConectados,
+        );
       },
     );
   }

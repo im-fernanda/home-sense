@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
+import '../pages/home_page.dart';
 import '../pages/rooms/banheiro_screen.dart';
 import '../pages/rooms/cozinha_screen.dart';
 import '../pages/rooms/externo_screen.dart';
 import '../pages/rooms/garagem_screen.dart';
-import '../pages/home_page.dart';
 import '../pages/rooms/quarto_screen.dart';
 import '../pages/rooms/sala_screen.dart';
 
@@ -13,10 +13,12 @@ class RoomCard extends StatelessWidget {
     super.key,
     required this.rooms,
     required this.index,
+    required this.dispositivosConectados,
   });
 
   final List rooms;
   final int index;
+  final List<int> dispositivosConectados;
 
   @override
   Widget build(BuildContext context) {
@@ -62,9 +64,9 @@ class RoomCard extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 4),
-                const Text(
-                  'Dispositivos conectados: 4', // Informação adicional
-                  style: TextStyle(
+                Text(
+                  'Dispositivos conectados: ${dispositivosConectados[index]}', // Número dinâmico
+                  style: const TextStyle(
                     color: Colors.white70,
                     fontSize: 14,
                   ),
@@ -110,7 +112,6 @@ void navigateToRoom(String room, BuildContext context) {
         MaterialPageRoute(builder: (context) => GaragemScreen()),
       );
       break;
-
     case "Externo":
       Navigator.push(
         context,
