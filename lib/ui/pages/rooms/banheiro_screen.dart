@@ -22,7 +22,6 @@ class _BanheiroScreenState extends State<BanheiroScreen> {
         padding: const EdgeInsets.all(16),
         child: Column(
           children: [
-            // Imagem do ambiente
             Container(
               height: 200,
               decoration: BoxDecoration(
@@ -36,23 +35,19 @@ class _BanheiroScreenState extends State<BanheiroScreen> {
             const SizedBox(height: 20),
             // Informações dos dispositivos
             Expanded(
-              child: GridView.count(
-                crossAxisCount: 2,
-                mainAxisSpacing: 16,
-                crossAxisSpacing: 16,
-                children: [
-                  _buildDeviceCard(
-                    title: 'LED',
-                    value: '', // Deixe o valor vazio ou removido
-                    icon: Icons.lightbulb,
-                    switchValue: ledEnabled,
-                    onSwitchChanged: (value) {
-                      setState(() {
-                        ledEnabled = value;
-                      });
-                    },
-                  ),
-                ],
+              child: Align(
+                alignment: Alignment.center,
+                child: _buildDeviceCard(
+                  title: 'Lâmpada',
+                  value: '', // Deixe o valor vazio ou removido
+                  icon: Icons.lightbulb,
+                  switchValue: ledEnabled,
+                  onSwitchChanged: (value) {
+                    setState(() {
+                      ledEnabled = value;
+                    });
+                  },
+                ),
               ),
             ),
           ],

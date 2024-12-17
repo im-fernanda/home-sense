@@ -9,7 +9,6 @@ class QuartoScreen extends StatefulWidget {
 }
 
 class _QuartoScreenState extends State<QuartoScreen> {
-
   String _statusAr = "desligado";
   int temp = 0;
   int umidade = 0;
@@ -17,7 +16,7 @@ class _QuartoScreenState extends State<QuartoScreen> {
 
   final DatabaseReference _db = FirebaseDatabase.instance.ref();
 
-   void captarInfos() {
+  void captarInfos() {
     // Inicia a captura das informações do Firebase
     _db.child("comodos/quarto/sensores/luminosidade").onValue.listen((event) {
       if (event.snapshot.value != null) {
@@ -49,7 +48,7 @@ class _QuartoScreenState extends State<QuartoScreen> {
 
   void arCondicionadoHandle() {
     setState(() {
-      if(_statusAr == "desligado") {
+      if (_statusAr == "desligado") {
         _statusAr = "ligado";
         _db.child("comodos/quarto/atuadores/ar-condicionado/on").set(true);
         _db.child("comodos/quarto/atuadores/ar-condicionado/valor").set(20);
@@ -75,12 +74,11 @@ class _QuartoScreenState extends State<QuartoScreen> {
         title: const Text("Quarto"),
         backgroundColor: Theme.of(context).colorScheme.primaryContainer,
       ),
-
       body: Center(
         child: Column(
           children: [
             ElevatedButton(
-              onPressed: () => arCondicionadoHandle(), 
+              onPressed: () => arCondicionadoHandle(),
               child: const Text("ON/OFF - AR"),
             ),
             Text("Temperatura: $temp"),

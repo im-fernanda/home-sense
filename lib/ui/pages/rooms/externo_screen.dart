@@ -43,7 +43,7 @@ class _ExternoScreenState extends State<ExternoScreen> {
                 crossAxisSpacing: 16,
                 children: [
                   _buildDeviceCard(
-                    title: 'LED',
+                    title: 'Lâmpada',
                     value: '', // Deixe o valor vazio ou removido
                     icon: Icons.lightbulb,
                     switchValue: ledEnabled,

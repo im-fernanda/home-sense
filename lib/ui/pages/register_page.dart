@@ -67,7 +67,7 @@ class _RegisterPageState extends State<RegisterPage> {
             ),
             const SizedBox(height: 10),
             CustomTextFormField(
-              labelText: "Usuário",
+              labelText: "E-mail",
               controller: emailController,
             ),
             const SizedBox(height: 10),

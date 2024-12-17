@@ -58,7 +58,7 @@ class _LoginPageState extends State<LoginPage> {
             ),
             const SizedBox(height: 50),
             CustomTextFormField(
-                labelText: "Usuário", controller: emailController),
+                labelText: "E-mail", controller: emailController),
             const SizedBox(height: 10),
             CustomPasswordFormField(
                 labelText: "Senha", controller: passwordController),
@@ -81,7 +81,7 @@ class _LoginPageState extends State<LoginPage> {
                 GestureDetector(
                   onTap: widget.onTap,
                   child: Text(
-                    "Cadastrar agora.",
+                    "Criar conta.",
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
                         color: Theme.of(context).colorScheme.primary),

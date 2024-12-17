@@ -2,7 +2,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../widgets/led_controller_card.dart';
+import '../../widgets/led_rgb_control.dart';
 
 class SalaScreen extends StatefulWidget {
   const SalaScreen({super.key});
@@ -59,20 +59,19 @@ class _SalaScreenState extends State<SalaScreen> {
         backgroundColor: Theme.of(context).colorScheme.primaryContainer,
       ),
       body: Center(
-        child: Column(
-          children: [
-            GestureDetector(
-            onTap: () => _ledHandle(context),
-            child: LedControllerCard(
-              title: "Lâmpada",
-              status: _status,
-              circleColor: _circleColor,
-              iconColor: _iconColor,
-            )),
-            Text("Movimento: $_movimento"),
-          ],
-        )
-      ),
+          child: Column(
+        children: [
+          GestureDetector(
+              onTap: () => _ledHandle(context),
+              child: LedRGBControl(
+                title: "Lâmpada",
+                status: _status,
+                circleColor: _circleColor,
+                iconColor: _iconColor,
+              )),
+          Text("Movimento: $_movimento"),
+        ],
+      )),
     );
   }
 }

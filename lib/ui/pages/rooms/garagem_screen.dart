@@ -43,7 +43,7 @@ class _GaragemScreenState extends State<GaragemScreen> {
                 crossAxisSpacing: 16,
                 children: [
                   _buildDeviceCard(
-                    title: 'LED',
+                    title: 'Lâmpada',
                     value: '',
                     // Deixe o valor vazio ou removido
                     icon: Icons.lightbulb,

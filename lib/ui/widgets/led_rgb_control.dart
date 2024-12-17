@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-class LedControllerCard extends StatelessWidget {
+class LedRGBControl extends StatelessWidget {
   final String title;
   final String status;
   final Color circleColor;
   final Color iconColor;
 
-  const LedControllerCard({
+  const LedRGBControl({
     super.key,
     required this.title,
     required this.status,
@@ -27,7 +27,8 @@ class LedControllerCard extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(12.0),
           child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center, // Centraliza o conteúdo verticalmente
+            crossAxisAlignment: CrossAxisAlignment
+                .center, // Centraliza o conteúdo verticalmente
             children: [
               // Ícone dentro do círculo menor
               CircleAvatar(
@@ -42,8 +43,10 @@ class LedControllerCard extends StatelessWidget {
               const SizedBox(width: 12), // Espaçamento ajustado
               // Título e status
               Column(
-                crossAxisAlignment: CrossAxisAlignment.start, // Alinhamento à esquerda
-                mainAxisAlignment: MainAxisAlignment.center, // Centraliza verticalmente
+                crossAxisAlignment:
+                    CrossAxisAlignment.start, // Alinhamento à esquerda
+                mainAxisAlignment:
+                    MainAxisAlignment.center, // Centraliza verticalmente
                 children: [
                   Text(
                     title,
@@ -58,7 +61,10 @@ class LedControllerCard extends StatelessWidget {
                     status,
                     style: TextStyle(
                       fontSize: 12, // Tamanho ajustado do status
-                      color: Theme.of(context).colorScheme.onPrimaryContainer.withOpacity(0.6),
+                      color: Theme.of(context)
+                          .colorScheme
+                          .onPrimaryContainer
+                          .withOpacity(0.6),
                     ),
                   ),
                 ],
