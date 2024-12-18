@@ -1,3 +1,4 @@
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 
 import '../../utils/card_builder.dart';
@@ -10,6 +11,9 @@ class BanheiroScreen extends StatefulWidget {
 }
 
 class _BanheiroScreenState extends State<BanheiroScreen> {
+
+  final DatabaseReference _db = FirebaseDatabase.instance.ref();
+
   // Estado para o switch do LED
   bool ledEnabled = false;
 
@@ -45,6 +49,7 @@ class _BanheiroScreenState extends State<BanheiroScreen> {
                   icon: Icons.lightbulb,
                   switchValue: ledEnabled,
                   onSwitchChanged: (value) {
+                    _db.child("comodos/banheiro/atuadores/lampada/on").set(value);
                     setState(() {
                       ledEnabled = value;
                     });

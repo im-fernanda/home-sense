@@ -1,3 +1,4 @@
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 
 import '../../utils/card_builder.dart';
@@ -10,9 +11,28 @@ class ExternoScreen extends StatefulWidget {
 }
 
 class _ExternoScreenState extends State<ExternoScreen> {
+
+  final DatabaseReference _db = FirebaseDatabase.instance.ref();
+
   // Estados para os switches
   bool ledEnabled = false;
-  String luminosidadeValue = '50%'; // Exemplo de valor de luminosidade
+  int luminosidadeValue = 0; // Exemplo de valor de luminosidade
+
+  void _captarInfos() {
+    _db.child("comodos/area-externa/sensores/luminosidade").onValue.listen((event) {
+      if (event.snapshot.value != null) {
+        setState(() {
+          luminosidadeValue = event.snapshot.value as int;
+        });
+      }
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _captarInfos(); // Chama a função para iniciar a captura dos dados do Firebase
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,6 +70,7 @@ class _ExternoScreenState extends State<ExternoScreen> {
                     icon: Icons.lightbulb,
                     switchValue: ledEnabled,
                     onSwitchChanged: (value) {
+                      _db.child("comodos/area-externa/atuadores/lampada/on").set(value);
                       setState(() {
                         ledEnabled = value;
                       });
@@ -57,7 +78,7 @@ class _ExternoScreenState extends State<ExternoScreen> {
                   ),
                   CardBuilder.buildDeviceCard(
                     title: 'Luminosidade',
-                    value: luminosidadeValue, // Valor de luminosidade
+                    value: '$luminosidadeValue %', // Valor de luminosidade
                     icon: Icons.wb_sunny,
                   ),
                 ],

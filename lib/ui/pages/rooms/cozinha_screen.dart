@@ -13,26 +13,42 @@ class CozinhaScreen extends StatefulWidget {
 class _CozinhaScreenState extends State<CozinhaScreen> {
   // Estados para os switches
   bool lampadaEnabled = false;
-  String temperatura = '22°C';
-  String umidade = '60%';
-  String luminosidade = '0 lx';
+  int temperatura = 0;
+  int umidade = 0;
+  int luminosidade = 0;
 
   final DatabaseReference _db = FirebaseDatabase.instance.ref();
+
+  void _captarInfos() {
+    _db.child("comodos/cozinha/sensores/luminosidade").onValue.listen((event) {
+      if (event.snapshot.value != null) {
+        setState(() {
+          luminosidade = event.snapshot.value as int;
+        });
+      }
+    });
+
+    _db.child("comodos/cozinha/sensores/umidade").onValue.listen((event) {
+      if (event.snapshot.value != null) {
+        setState(() {
+          umidade = event.snapshot.value as int;
+        });
+      }
+    });
+
+    _db.child("comodos/cozinha/sensores/temperatura").onValue.listen((event) {
+      if (event.snapshot.value != null) {
+        setState(() {
+          temperatura = event.snapshot.value as int;
+        });
+      }
+    });
+  }
 
   @override
   void initState() {
     super.initState();
-    _captarLuminosidade();
-  }
-
-  void _captarLuminosidade() {
-    _db.child("comodos/cozinha/sensores/luminosidade").onValue.listen((event) {
-      if (event.snapshot.value != null) {
-        setState(() {
-          luminosidade = "${event.snapshot.value} lx";
-        });
-      }
-    });
+    _captarInfos();
   }
 
   @override
@@ -71,6 +87,7 @@ class _CozinhaScreenState extends State<CozinhaScreen> {
                     icon: Icons.lightbulb,
                     switchValue: lampadaEnabled,
                     onSwitchChanged: (value) {
+                      _db.child("comodos/cozinha/atuadores/lampada/on").set(value);
                       setState(() {
                         lampadaEnabled = value;
                       });
@@ -78,17 +95,17 @@ class _CozinhaScreenState extends State<CozinhaScreen> {
                   ),
                   CardBuilder.buildDeviceCard(
                     title: 'Temperatura',
-                    value: temperatura,
+                    value: "$temperatura C°",
                     icon: Icons.thermostat,
                   ),
                   CardBuilder.buildDeviceCard(
                     title: 'Umidade',
-                    value: umidade,
+                    value: "$umidade %",
                     icon: Icons.water_drop,
                   ),
                   CardBuilder.buildDeviceCard(
                     title: 'Luminosidade',
-                    value: luminosidade,
+                    value: "$luminosidade %",
                     icon: Icons.wb_sunny,
                   ),
                 ],

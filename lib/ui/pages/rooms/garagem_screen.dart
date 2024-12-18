@@ -1,3 +1,4 @@
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 
 import '../../utils/card_builder.dart';
@@ -10,6 +11,9 @@ class GaragemScreen extends StatefulWidget {
 }
 
 class _GaragemScreenState extends State<GaragemScreen> {
+
+  final DatabaseReference _db = FirebaseDatabase.instance.ref();
+  
   // Estados para os switches
   bool ledEnabled = false;
   bool portaoAberto = false;
@@ -51,6 +55,7 @@ class _GaragemScreenState extends State<GaragemScreen> {
                     icon: Icons.lightbulb,
                     switchValue: ledEnabled,
                     onSwitchChanged: (value) {
+                      _db.child("comodos/garagem/atuadores/lampada/on").set(value);
                       setState(() {
                         ledEnabled = value;
                       });
@@ -63,6 +68,7 @@ class _GaragemScreenState extends State<GaragemScreen> {
                     icon: Icons.door_front_door,
                     switchValue: portaoAberto,
                     onSwitchChanged: (value) {
+                      _db.child("comodos/garagem/atuadores/servo").set(value);
                       setState(() {
                         portaoAberto = value;
                       });
@@ -76,6 +82,7 @@ class _GaragemScreenState extends State<GaragemScreen> {
                     switchValue: !portaoAberto,
                     // Controle se o portão está aberto ou fechado
                     onSwitchChanged: (value) {
+                      _db.child("comodos/garagem/atuadores/servo").set(!value);
                       setState(() {
                         portaoAberto = !value;
                       });
