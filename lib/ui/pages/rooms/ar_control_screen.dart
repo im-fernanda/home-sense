@@ -155,6 +155,8 @@ class _ArControlScreenState extends State<ArControlScreen> {
                                     temperatura < maxTemperatura) {
                                   setState(() {
                                     --temperatura;
+                                    tempInt = temperatura.toInt();
+                                     _db.child("comodos/quarto/atuadores/ar-condicionado/valor").set(tempInt);
                                   });
                                 }
                               },
@@ -168,6 +170,8 @@ class _ArControlScreenState extends State<ArControlScreen> {
                                     temperatura < maxTemperatura) {
                                   setState(() {
                                     ++temperatura;
+                                    tempInt = temperatura.toInt();
+                                     _db.child("comodos/quarto/atuadores/ar-condicionado/valor").set(tempInt);
                                   });
                                 }
                               },
