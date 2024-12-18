@@ -11,28 +11,16 @@ class LedRGBScreen extends StatefulWidget {
 }
 
 class _LedRGBScreenState extends State<LedRGBScreen> {
-
   final DatabaseReference _db = FirebaseDatabase.instance.ref();
 
   Color selectedColor = Colors.white;
 
-  final List<Map<String, dynamic>> colors = [
-    {'name': 'Vermelho', 'color': Colors.red},
-    {'name': 'Verde', 'color': Colors.green},
-    {'name': 'Azul', 'color': Colors.blue},
-    {'name': 'Branco', 'color': Colors.white},
-    {'name': 'Laranja', 'color': Colors.orange},
-    {'name': 'Verde Claro', 'color': Colors.lightGreen},
-    {'name': 'Azul Claro', 'color': Colors.lightBlue},
-    {'name': 'Amarelo', 'color': Colors.yellow},
-    {'name': 'Ciano', 'color': Colors.cyan},
-    {'name': 'Magenta', 'color': Colors.purpleAccent},
-    {'name': 'Rosa', 'color': Colors.pink},
-    {'name': 'Violeta', 'color': Colors.deepPurple},
-    {'name': 'Vermelho Claro', 'color': Colors.redAccent},
-    {'name': 'Verde Azulado', 'color': Colors.teal},
-    {'name': 'Azul Profundo', 'color': Colors.indigo},
-    {'name': 'Roxo', 'color': Colors.purple},
+  // Lista de cores com apenas vermelho, verde, azul e branco
+  final List<Color> colors = [
+    Colors.red,
+    Colors.green,
+    Colors.blue,
+    Colors.white,
   ];
 
   @override
@@ -60,7 +48,7 @@ class _LedRGBScreenState extends State<LedRGBScreen> {
           ),
           const SizedBox(height: 10),
 
-          // Grade com botões de cores
+          // Grade com círculos para seleção de cor
           Expanded(
             child: GridView.builder(
               padding: const EdgeInsets.all(12),
@@ -71,28 +59,19 @@ class _LedRGBScreenState extends State<LedRGBScreen> {
               ),
               itemCount: colors.length,
               itemBuilder: (context, index) {
-                return ElevatedButton(
-                  onPressed: () {
-                    _db.child("comodos/${widget.thisScreen}/atuadores/lampada-rgb/cor").set(colors[index]['name']);
+                return GestureDetector(
+                  onTap: () {
+                    _db
+                        .child(
+                            "comodos/${widget.thisScreen}/atuadores/lampada-rgb/cor")
+                        .set(colors[index].toString());
                     setState(() {
-                      selectedColor = colors[index]['color'];
+                      selectedColor = colors[index];
                     });
                   },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: colors[index]['color'],
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                  ),
-                  child: Text(
-                    colors[index]['name'],
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: colors[index]['color'] == Colors.white
-                          ? Colors.black
-                          : Colors.white,
-                      fontSize: 10,
-                    ),
+                  child: CircleAvatar(
+                    radius: 30,
+                    backgroundColor: colors[index],
                   ),
                 );
               },
