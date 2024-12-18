@@ -30,7 +30,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("House Sense"),
+        title: const Text("Home Sense"),
         backgroundColor: Theme.of(context).colorScheme.primaryContainer,
       ),
       body: _options[
