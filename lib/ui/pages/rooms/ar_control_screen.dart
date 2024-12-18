@@ -68,7 +68,7 @@ class _ArControlScreenState extends State<ArControlScreen> {
         title: Column(
           children: [
             Text(
-              'Ar Condicionado',
+              'Ar-Condicionado',
               style: TextStyle(
                 fontSize: 24,
               ),
