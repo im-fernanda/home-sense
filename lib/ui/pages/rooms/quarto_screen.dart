@@ -90,6 +90,7 @@ class _QuartoScreenState extends State<QuartoScreen> {
                     context: context,
                     switchValue: lampadaEnabled,
                     onSwitchChanged: (value) {
+                      _db.child("comodos/quarto/atuadores/lampada-rgb/on").set(value);
                       setState(() {
                         lampadaEnabled = value;
                       });
@@ -117,7 +118,7 @@ class _QuartoScreenState extends State<QuartoScreen> {
                     context: context,
                     switchValue: inicial,
                     onSwitchChanged: (value) {
-                       _db.child("comodos/quarto/atuadores/ar-condicionado/on").set(value);
+                      _db.child("comodos/quarto/atuadores/ar-condicionado/on").set(value);
                       setState(() {
                         inicial = value;
                       });

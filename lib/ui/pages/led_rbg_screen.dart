@@ -16,11 +16,11 @@ class _LedRGBScreenState extends State<LedRGBScreen> {
   Color selectedColor = Colors.white;
 
   // Lista de cores com apenas vermelho, verde, azul e branco
-  final List<Color> colors = [
-    Colors.red,
-    Colors.green,
-    Colors.blue,
-    Colors.white,
+  final List<Map<String, dynamic>> colors = [
+    {'name': 'Vermelho', 'color': Colors.red},
+    {'name': 'Verde', 'color': Colors.green},
+    {'name': 'Azul', 'color': Colors.blue},
+    {'name': 'Branco', 'color': Colors.white},
   ];
 
   @override
@@ -87,14 +87,23 @@ class _LedRGBScreenState extends State<LedRGBScreen> {
                     _db
                         .child(
                             "comodos/${widget.thisScreen}/atuadores/lampada-rgb/cor")
-                        .set(colors[index].toString());
+                        .set(colors[index]['name']);
                     setState(() {
-                      selectedColor = colors[index];
+                      selectedColor = colors[index]['color'];
                     });
                   },
-                  child: CircleAvatar(
-                    radius: 30,
-                    backgroundColor: colors[index],
+                  child: Container(
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle, // Garante que a borda seja circular
+                      border: Border.all(
+                        color: Colors.black, // Cor da borda
+                        width: 1.0, // Largura da borda
+                      ),
+                    ),
+                    child: CircleAvatar(
+                      radius: 30,
+                      backgroundColor: colors[index]['color'],
+                    ),
                   ),
                 );
               },
