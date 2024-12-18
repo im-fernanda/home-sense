@@ -12,7 +12,7 @@ class ArControlScreen extends StatefulWidget {
 
 class _ArControlScreenState extends State<ArControlScreen> {
   double temperature = 25;
-  double minTemperature = 16;
+  double minTemperature = 14;
   double maxTemperature = 30;
 
   List<String> modeTitles = [
@@ -217,7 +217,7 @@ class _ArControlScreenState extends State<ArControlScreen> {
                         title: modeTitles[index],
                         icon: modeIcons[index],
                       ),
-                      separatorBuilder: (context, index) => SizedBox(width: 10),
+                      separatorBuilder: (context, index) => SizedBox(width: 30),
                       scrollDirection: Axis.horizontal,
                       physics: NeverScrollableScrollPhysics(),
                     ),
@@ -244,7 +244,7 @@ class _ArControlScreenState extends State<ArControlScreen> {
                         title: fanSpeedModes[index],
                         icon: fanSpeedIcons[index],
                       ),
-                      separatorBuilder: (context, index) => SizedBox(width: 10),
+                      separatorBuilder: (context, index) => SizedBox(width: 30),
                       scrollDirection: Axis.horizontal,
                       physics: NeverScrollableScrollPhysics(),
                     ),
