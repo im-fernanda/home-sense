@@ -14,6 +14,7 @@ class _LedRGBScreenState extends State<LedRGBScreen> {
     {'name': 'Vermelho', 'color': Colors.red},
     {'name': 'Verde', 'color': Colors.green},
     {'name': 'Azul', 'color': Colors.blue},
+    {'name': 'Branco', 'color': Colors.white},
     {'name': 'Laranja', 'color': Colors.orange},
     {'name': 'Verde Claro', 'color': Colors.lightGreen},
     {'name': 'Azul Claro', 'color': Colors.lightBlue},
@@ -26,14 +27,13 @@ class _LedRGBScreenState extends State<LedRGBScreen> {
     {'name': 'Verde Azulado', 'color': Colors.teal},
     {'name': 'Azul Profundo', 'color': Colors.indigo},
     {'name': 'Roxo', 'color': Colors.purple},
-    {'name': 'Branco', 'color': Colors.white},
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Controle de LEDs RGB'),
+        title: const Text('Controle de LED RGB'),
         centerTitle: true,
         backgroundColor: Colors.black87,
         foregroundColor: Colors.white,

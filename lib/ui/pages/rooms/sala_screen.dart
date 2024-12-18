@@ -15,7 +15,7 @@ class _SalaScreenState extends State<SalaScreen> {
   bool lampadaEnabled = false;
   String temperatura = '22°C';
   String umidade = '60%';
-  String luminosidade = '0 lx';
+  String luminosidade = '0';
 
   final DatabaseReference _db = FirebaseDatabase.instance.ref();
 
@@ -26,10 +26,10 @@ class _SalaScreenState extends State<SalaScreen> {
   }
 
   void _captarLuminosidade() {
-    _db.child("comodos/cozinha/sensores/luminosidade").onValue.listen((event) {
+    _db.child("comodos/sala/sensores/luminosidade").onValue.listen((event) {
       if (event.snapshot.value != null) {
         setState(() {
-          luminosidade = "${event.snapshot.value} lx";
+          luminosidade = "${event.snapshot.value}%";
         });
       }
     });

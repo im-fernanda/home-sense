@@ -1,29 +1,19 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '/utils/constants.dart';
-import '/widgets/mode_button.dart';
+import '../../utils/Constants.dart';
+import '../../utils/mode_button.dart';
 
 class ArControlScreen extends StatefulWidget {
-  final bool initialPowerState; // Estado inicial do switch
-
-  const ArControlScreen({super.key, required this.initialPowerState});
+  const ArControlScreen({super.key});
 
   @override
   State<ArControlScreen> createState() => _ArControlScreenState();
 }
 
 class _ArControlScreenState extends State<ArControlScreen> {
-  late bool powerOn;
-
-  @override
-  void initState() {
-    super.initState();
-    powerOn = widget.initialPowerState; // Inicializa com o valor recebido
-  }
-
   double temperature = 25;
-  double minTemperature = 10;
-  double maxTemperature = 40;
+  double minTemperature = 16;
+  double maxTemperature = 30;
 
   List<String> modeTitles = [
     'Auto',
@@ -31,7 +21,7 @@ class _ArControlScreenState extends State<ArControlScreen> {
     'Dry',
   ];
 
-  List<IconData> modeIcon = [
+  List<IconData> modeIcons = [
     Icons.water_drop,
     Icons.ac_unit,
     Icons.mode_fan_off,
@@ -223,9 +213,9 @@ class _ArControlScreenState extends State<ArControlScreen> {
                   Expanded(
                     child: ListView.separated(
                       itemCount: modeTitles.length,
-                      itemBuilder: (context, index) => Modebutton(
+                      itemBuilder: (context, index) => ModeButton(
                         title: modeTitles[index],
-                        icon: modeIcon[index],
+                        icon: modeIcons[index],
                       ),
                       separatorBuilder: (context, index) => SizedBox(width: 10),
                       scrollDirection: Axis.horizontal,
@@ -238,7 +228,7 @@ class _ArControlScreenState extends State<ArControlScreen> {
                     child: Row(
                       children: [
                         Text(
-                          'Velocidade',
+                          'Velocidade do Ventilador',
                           style: TextStyle(
                             fontSize: 20,
                           ),
@@ -250,7 +240,7 @@ class _ArControlScreenState extends State<ArControlScreen> {
                   Expanded(
                     child: ListView.separated(
                       itemCount: fanSpeedModes.length,
-                      itemBuilder: (context, index) => Modebutton(
+                      itemBuilder: (context, index) => ModeButton(
                         title: fanSpeedModes[index],
                         icon: fanSpeedIcons[index],
                       ),
@@ -260,60 +250,6 @@ class _ArControlScreenState extends State<ArControlScreen> {
                     ),
                   ),
                   SizedBox(height: height / 25),
-                  Container(
-                    child: Row(
-                      children: [
-                        Icon(
-                          Icons.power_settings_new,
-                          color: Constants.greyColor,
-                        ),
-                        SizedBox(width: 10),
-                        Text(
-                          'Power',
-                          style: TextStyle(
-                            fontSize: 19,
-                          ),
-                        ),
-                        Spacer(),
-                        CupertinoSwitch(
-                          value: powerOn,
-                          onChanged: (value) {
-                            setState(() {
-                              powerOn = value;
-                            });
-                          },
-                        ),
-                      ],
-                    ),
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        colors: [
-                          Constants.shadowColor,
-                          Constants.backgroundColor,
-                        ],
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                        stops: [0.3, 0.6],
-                      ),
-                      borderRadius: BorderRadius.circular(25),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey,
-                          offset: Offset(5, 5),
-                          blurRadius: 15,
-                          spreadRadius: 2,
-                        ),
-                        BoxShadow(
-                          color: Constants.backgroundColor,
-                          offset: Offset(-5, -5),
-                          blurRadius: 10,
-                          spreadRadius: 1,
-                        ),
-                      ],
-                    ),
-                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 25),
-                  ),
-                  SizedBox(height: height / 40),
                 ],
               ),
             ),
