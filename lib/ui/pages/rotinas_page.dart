@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../widgets/rotina_card.dart';
 import 'home_page.dart';
 
 class RotinasPage extends StatefulWidget {
@@ -12,7 +13,7 @@ class RotinasPage extends StatefulWidget {
 class _RotinasPageState extends State<RotinasPage> {
 
   int _selectedIndex = 0;
-  final List<String> rooms = ["Sala", "Quarto", "Cozinha", "Banheiro", "Garagem"];
+  final List<String> rotinas = ["Chegada", "Saida"];
   static const List<Widget> _options = <Widget>[
     HomePage(),
     RotinasPage(),
@@ -33,10 +34,14 @@ class _RotinasPageState extends State<RotinasPage> {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(
-        child: Text("Rotinas"),
-      ),
+    return ListView.builder(
+      itemCount: rotinas.length,
+      itemBuilder: (context, index) {
+        return RotinaCard(
+          rotinas: rotinas,
+          index: index,
+        );
+      },
     );
   }
 }
