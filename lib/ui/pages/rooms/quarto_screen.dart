@@ -12,27 +12,44 @@ class QuartoScreen extends StatefulWidget {
 
 class _QuartoScreenState extends State<QuartoScreen> {
   bool lampadaEnabled = false;
-  bool inical = false; // Controle do switch do ar-condicionado
-  String temperatura = '22°C';
-  String umidade = '60%';
-  String luminosidade = '0';
+  bool inicial = false; // Controle do switch do ar-condicionado
+  int temperatura = 0;
+  int umidade = 0;
+  int luminosidade = 0;
+  double arTemp = 0;
 
   final DatabaseReference _db = FirebaseDatabase.instance.ref();
+
+  void _captarInfos() {
+    _db.child("comodos/quarto/sensores/luminosidade").onValue.listen((event) {
+      if (event.snapshot.value != null) {
+        setState(() {
+          luminosidade = event.snapshot.value as int;
+        });
+      }
+    });
+
+    _db.child("comodos/quarto/sensores/umidade").onValue.listen((event) {
+      if (event.snapshot.value != null) {
+        setState(() {
+          umidade = event.snapshot.value as int;
+        });
+      }
+    });
+
+    _db.child("comodos/quarto/sensores/temperatura").onValue.listen((event) {
+      if (event.snapshot.value != null) {
+        setState(() {
+          temperatura = event.snapshot.value as int;
+        });
+      }
+    });
+  }
 
   @override
   void initState() {
     super.initState();
-    _captarLuminosidade();
-  }
-
-  void _captarLuminosidade() {
-    _db.child("comodos/quarto/sensores/luminosidade").onValue.listen((event) {
-      if (event.snapshot.value != null) {
-        setState(() {
-          luminosidade = "${event.snapshot.value}%";
-        });
-      }
-    });
+    _captarInfos();
   }
 
   @override
@@ -69,6 +86,7 @@ class _QuartoScreenState extends State<QuartoScreen> {
                     title: 'Lâmpada',
                     value: '',
                     icon: Icons.lightbulb,
+                    thisScreen: "quarto",
                     context: context,
                     switchValue: lampadaEnabled,
                     onSwitchChanged: (value) {
@@ -79,29 +97,29 @@ class _QuartoScreenState extends State<QuartoScreen> {
                   ),
                   CardBuilder.buildDeviceCard(
                     title: 'Temperatura',
-                    value: temperatura,
+                    value: "$temperatura C°",
                     icon: Icons.thermostat,
                   ),
                   CardBuilder.buildDeviceCard(
                     title: 'Umidade',
-                    value: umidade,
+                    value: "$umidade %",
                     icon: Icons.water_drop,
                   ),
                   CardBuilder.buildDeviceCard(
                     title: 'Luminosidade',
-                    value: luminosidade,
+                    value: "$luminosidade %",
                     icon: Icons.wb_sunny,
                   ),
                   CardBuilder.buildArCard(
                     title: 'Ar-condicionado',
-                    value:
-                        '', // Adicione a lógica de valor se necessário (ex: temperatura do ar)
+                    value: '', // Adicione a lógica de valor se necessário (ex: temperatura do ar)
                     icon: Icons.ac_unit,
                     context: context,
-                    switchValue: inical,
+                    switchValue: inicial,
                     onSwitchChanged: (value) {
+                       _db.child("comodos/quarto/atuadores/ar-condicionado/on").set(value);
                       setState(() {
-                        inical = value;
+                        inicial = value;
                       });
                     },
                   ),

@@ -1,3 +1,4 @@
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 
 import '../utils/constants.dart';
@@ -13,12 +14,16 @@ class ModeButton extends StatefulWidget {
 }
 
 class _ModeButtonState extends State<ModeButton> {
+
+  final DatabaseReference _db = FirebaseDatabase.instance.ref();
+
   bool enabled = false;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
+        _db.child("comodos/quarto/atuadores/ar-condicionado/modo").set(widget.title);
         setState(() {
           enabled = !enabled;
         });

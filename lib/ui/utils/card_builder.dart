@@ -58,6 +58,7 @@ abstract class CardBuilder {
     required String title,
     required String value,
     required IconData icon,
+    required String thisScreen,
     required BuildContext context,
     bool? switchValue, // Opcional para dispositivos com switches
     void Function(bool)? onSwitchChanged, // Callback para alternar switches
@@ -66,7 +67,7 @@ abstract class CardBuilder {
       onTap: (switchValue == true)
           ? () {
               Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => LedRGBScreen()));
+                  MaterialPageRoute(builder: (context) => LedRGBScreen(thisScreen: thisScreen,)));
             }
           : null,
       child: Card(

@@ -1,13 +1,19 @@
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 
 class LedRGBScreen extends StatefulWidget {
-  const LedRGBScreen({super.key});
+  const LedRGBScreen({super.key, required this.thisScreen});
+
+  final String thisScreen;
 
   @override
   State<LedRGBScreen> createState() => _LedRGBScreenState();
 }
 
 class _LedRGBScreenState extends State<LedRGBScreen> {
+
+  final DatabaseReference _db = FirebaseDatabase.instance.ref();
+
   Color selectedColor = Colors.white;
 
   final List<Map<String, dynamic>> colors = [
@@ -67,6 +73,7 @@ class _LedRGBScreenState extends State<LedRGBScreen> {
               itemBuilder: (context, index) {
                 return ElevatedButton(
                   onPressed: () {
+                    _db.child("comodos/${widget.thisScreen}/atuadores/lampada-rgb/cor").set(colors[index]['name']);
                     setState(() {
                       selectedColor = colors[index]['color'];
                     });

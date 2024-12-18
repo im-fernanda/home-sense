@@ -1,3 +1,4 @@
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../../utils/Constants.dart';
@@ -11,9 +12,13 @@ class ArControlScreen extends StatefulWidget {
 }
 
 class _ArControlScreenState extends State<ArControlScreen> {
-  double temperature = 25;
-  double minTemperature = 14;
-  double maxTemperature = 30;
+
+  final DatabaseReference _db = FirebaseDatabase.instance.ref();
+
+  double temperatura = 15;
+  double minTemperatura = 14;
+  double maxTemperatura = 30;
+  int tempInt = 0;
 
   List<String> modeTitles = [
     'Auto',
@@ -27,17 +32,25 @@ class _ArControlScreenState extends State<ArControlScreen> {
     Icons.mode_fan_off,
   ];
 
-  List<String> fanSpeedModes = [
-    'Low',
-    'Mid',
-    'High',
-  ];
+  Future<void> _loadInitialTemperature() async {
+    try {
+      final snapshot = await _db.child("comodos/quarto/atuadores/ar-condicionado/valor").once();
+      final value = snapshot.snapshot.value;
+      if (value != null) {
+        setState(() {
+          temperatura = (value as num).toDouble();
+        });
+      }
+    } catch (e) {
+      debugPrint("Erro ao carregar temperatura: $e");
+    }
+  }
 
-  List<IconData> fanSpeedIcons = [
-    Icons.air,
-    Icons.storm,
-    Icons.tornado,
-  ];
+  @override
+  void initState() {
+    super.initState();
+    _loadInitialTemperature();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -84,7 +97,7 @@ class _ArControlScreenState extends State<ArControlScreen> {
                     Column(
                       children: [
                         Text(
-                          temperature.toStringAsFixed(0),
+                          temperatura.toStringAsFixed(0),
                           style: TextStyle(
                             fontSize: 70,
                             fontWeight: FontWeight.w500,
@@ -112,12 +125,14 @@ class _ArControlScreenState extends State<ArControlScreen> {
                   child: Column(
                     children: [
                       Slider(
-                        min: minTemperature,
-                        max: maxTemperature,
-                        value: temperature,
+                        min: minTemperatura,
+                        max: maxTemperatura,
+                        value: temperatura,
                         onChanged: (value) {
+                          tempInt = value.toInt();
+                          _db.child("comodos/quarto/atuadores/ar-condicionado/valor").set(tempInt);
                           setState(() {
-                            temperature = value;
+                            temperatura = value;
                           });
                         },
                         activeColor: Colors.grey,
@@ -130,10 +145,10 @@ class _ArControlScreenState extends State<ArControlScreen> {
                           children: [
                             IconButton(
                               onPressed: () {
-                                if (temperature > minTemperature &&
-                                    temperature < maxTemperature) {
+                                if (temperatura > minTemperatura &&
+                                    temperatura < maxTemperatura) {
                                   setState(() {
-                                    --temperature;
+                                    --temperatura;
                                   });
                                 }
                               },
@@ -143,10 +158,10 @@ class _ArControlScreenState extends State<ArControlScreen> {
                             ),
                             IconButton(
                               onPressed: () {
-                                if (temperature > minTemperature &&
-                                    temperature < maxTemperature) {
+                                if (temperatura > minTemperatura &&
+                                    temperatura < maxTemperatura) {
                                   setState(() {
-                                    ++temperature;
+                                    ++temperatura;
                                   });
                                 }
                               },
@@ -237,18 +252,6 @@ class _ArControlScreenState extends State<ArControlScreen> {
                     ),
                   ),
                   SizedBox(height: 10),
-                  Expanded(
-                    child: ListView.separated(
-                      itemCount: fanSpeedModes.length,
-                      itemBuilder: (context, index) => ModeButton(
-                        title: fanSpeedModes[index],
-                        icon: fanSpeedIcons[index],
-                      ),
-                      separatorBuilder: (context, index) => SizedBox(width: 30),
-                      scrollDirection: Axis.horizontal,
-                      physics: NeverScrollableScrollPhysics(),
-                    ),
-                  ),
                   SizedBox(height: height / 25),
                 ],
               ),

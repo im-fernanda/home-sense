@@ -67,7 +67,7 @@ class HomePageContent extends StatelessWidget {
 
     final List<int> dispositivosConectados = [
       3, // Sala
-      4, // Quarto
+      5, // Quarto
       3, // Cozinha
       1, // Banheiro
       1, // Garagem

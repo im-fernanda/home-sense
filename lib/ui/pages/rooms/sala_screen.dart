@@ -13,26 +13,24 @@ class SalaScreen extends StatefulWidget {
 class _SalaScreenState extends State<SalaScreen> {
   // Estados para os switches
   bool lampadaEnabled = false;
-  String temperatura = '22°C';
-  String umidade = '60%';
-  String luminosidade = '0';
+  int luminosidade = 0;
 
   final DatabaseReference _db = FirebaseDatabase.instance.ref();
+
+  void _captarInfos() {
+    _db.child("comodos/sala/sensores/luminosidade").onValue.listen((event) {
+      if (event.snapshot.value != null) {
+        setState(() {
+          luminosidade = event.snapshot.value as int;
+        });
+      }
+    });
+  }
 
   @override
   void initState() {
     super.initState();
-    _captarLuminosidade();
-  }
-
-  void _captarLuminosidade() {
-    _db.child("comodos/sala/sensores/luminosidade").onValue.listen((event) {
-      if (event.snapshot.value != null) {
-        setState(() {
-          luminosidade = "${event.snapshot.value}%";
-        });
-      }
-    });
+    _captarInfos();
   }
 
   @override
@@ -69,27 +67,19 @@ class _SalaScreenState extends State<SalaScreen> {
                     title: 'Lâmpada',
                     value: '',
                     icon: Icons.lightbulb,
+                    thisScreen: "sala",
                     context: context,
                     switchValue: lampadaEnabled,
                     onSwitchChanged: (value) {
+                      _db.child("comodos/sala/atuadores/lampada-rgb/on").set(value);
                       setState(() {
                         lampadaEnabled = value;
                       });
                     },
                   ),
                   CardBuilder.buildDeviceCard(
-                    title: 'Temperatura',
-                    value: temperatura,
-                    icon: Icons.thermostat,
-                  ),
-                  CardBuilder.buildDeviceCard(
-                    title: 'Umidade',
-                    value: umidade,
-                    icon: Icons.water_drop,
-                  ),
-                  CardBuilder.buildDeviceCard(
                     title: 'Luminosidade',
-                    value: luminosidade,
+                    value: "$luminosidade %",
                     icon: Icons.wb_sunny,
                   ),
                 ],

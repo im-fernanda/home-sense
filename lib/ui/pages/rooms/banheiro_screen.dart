@@ -41,20 +41,24 @@ class _BanheiroScreenState extends State<BanheiroScreen> {
             const SizedBox(height: 20),
             // Informações dos dispositivos
             Expanded(
-              child: Align(
-                alignment: Alignment.center,
-                child: CardBuilder.buildDeviceCard(
-                  title: 'Lâmpada',
-                  value: '', // Deixe o valor vazio ou removido
-                  icon: Icons.lightbulb,
-                  switchValue: ledEnabled,
-                  onSwitchChanged: (value) {
-                    _db.child("comodos/banheiro/atuadores/lampada/on").set(value);
-                    setState(() {
-                      ledEnabled = value;
-                    });
-                  },
-                ),
+              child: GridView.count(
+                crossAxisCount: 2,
+                mainAxisSpacing: 16,
+                crossAxisSpacing: 16,
+                children: [
+                  CardBuilder.buildDeviceCard(
+                    title: 'Lâmpada',
+                    value: '',
+                    icon: Icons.lightbulb,
+                    switchValue: ledEnabled,
+                    onSwitchChanged: (value) {
+                      _db.child("comodos/banheiro/atuadores/lampada/on").set(value);
+                      setState(() {
+                        ledEnabled = value;
+                      });
+                    },
+                  ),
+                ],
               ),
             ),
           ],
