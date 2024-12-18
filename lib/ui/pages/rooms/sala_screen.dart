@@ -82,6 +82,11 @@ class _SalaScreenState extends State<SalaScreen> {
                     value: "$luminosidade %",
                     icon: Icons.wb_sunny,
                   ),
+                  CardBuilder.buildDeviceCard(
+                    title: 'Rotina',
+                    value: "$luminosidade %",
+                    icon: Icons.wb_sunny,
+                  ),
                 ],
               ),
             ),

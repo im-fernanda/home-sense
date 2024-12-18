@@ -59,7 +59,7 @@ class _RegisterPageState extends State<RegisterPage> {
             ),
             const SizedBox(height: 50),
             Text(
-              "Vamos criar uma nova conta!",
+              "Vamos criar sua conta!",
               style: TextStyle(
                 fontSize: Theme.of(context).textTheme.bodyLarge!.fontSize,
                 color: Theme.of(context).colorScheme.primary,

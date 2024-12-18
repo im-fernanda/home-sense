@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:home_sense/ui/pages/login_or_register_page.dart';
 import '../widgets/room_card.dart';
 import 'perfil_page.dart';
 import 'rotinas_page.dart';
@@ -26,15 +26,32 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
+  void _logout(BuildContext context) {
+    // Redireciona para a página LoginOrRegisterPage
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(
+        builder: (context) => const LoginOrRegisterPage(),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Home Sense"),
         backgroundColor: Theme.of(context).colorScheme.primaryContainer,
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.logout),
+            onPressed: () {
+              _logout(context);
+            },
+            tooltip: 'Logout',
+          ),
+        ],
       ),
-      body: _options[
-          _selectedIndex], // Troca de telas com base no índice selecionado
+      body: _options[_selectedIndex],
       bottomNavigationBar: NavigationBar(
         destinations: const [
           NavigationDestination(icon: Icon(Icons.home), label: 'Cômodos'),
