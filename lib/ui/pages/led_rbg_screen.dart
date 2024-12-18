@@ -25,12 +25,35 @@ class _LedRGBScreenState extends State<LedRGBScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var height = MediaQuery.of(context).size.height;
+
     return Scaffold(
+      backgroundColor: Colors.white, // Cor de fundo mais clara para combinar
       appBar: AppBar(
-        title: const Text('Controle de LED RGB'),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        foregroundColor: Colors.black,
         centerTitle: true,
-        backgroundColor: Colors.black87,
-        foregroundColor: Colors.white,
+        title: Column(
+          children: [
+            Text(
+              'Controle de LED RGB',
+              style: TextStyle(
+                fontSize: 24,
+              ),
+            ),
+            SizedBox(height: 5),
+            Text(
+              widget.thisScreen.toUpperCase(), // Nome do cômodo em maiúsculo
+              style: TextStyle(
+                color: Colors
+                    .blueAccent, // Cor de destaque, pode ser personalizada
+                fontSize: 15,
+              ),
+            ),
+          ],
+        ),
+        toolbarHeight: height / 6, // Ajuste para o tamanho do título
       ),
       body: Column(
         children: [
