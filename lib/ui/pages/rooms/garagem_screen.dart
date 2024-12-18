@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../utils/card_builder.dart';
+
 class GaragemScreen extends StatefulWidget {
   const GaragemScreen({super.key});
 
@@ -42,7 +44,7 @@ class _GaragemScreenState extends State<GaragemScreen> {
                 mainAxisSpacing: 16,
                 crossAxisSpacing: 16,
                 children: [
-                  _buildDeviceCard(
+                  CardBuilder.buildDeviceCard(
                     title: 'Lâmpada',
                     value: '',
                     // Deixe o valor vazio ou removido
@@ -54,7 +56,7 @@ class _GaragemScreenState extends State<GaragemScreen> {
                       });
                     },
                   ),
-                  _buildDeviceCard(
+                  CardBuilder.buildDeviceCard(
                     title: 'Abrir Portão',
                     value: '',
                     // Não há valor para esse dispositivo
@@ -66,7 +68,7 @@ class _GaragemScreenState extends State<GaragemScreen> {
                       });
                     },
                   ),
-                  _buildDeviceCard(
+                  CardBuilder.buildDeviceCard(
                     title: 'Fechar Portão',
                     value: '',
                     // Não há valor para esse dispositivo
@@ -84,57 +86,6 @@ class _GaragemScreenState extends State<GaragemScreen> {
             ),
           ],
         ),
-      ),
-    );
-  }
-
-  // Método auxiliar para construção do card
-  Widget _buildDeviceCard({
-    required String title,
-    required String value,
-    required IconData icon,
-    bool? switchValue, // Opcional para dispositivos com switches
-    void Function(bool)? onSwitchChanged, // Callback para alternar switches
-  }) {
-    return Card(
-      color: Colors.white,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          // Ícone centralizado
-          Icon(icon, size: 40, color: Colors.green),
-          const SizedBox(height: 10),
-          // Título do dispositivo
-          Text(
-            title,
-            style: const TextStyle(color: Colors.grey),
-          ),
-          const SizedBox(height: 5),
-          // Linha contendo o Switch e o valor
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              // Switch somente para dispositivos com switch
-              if (switchValue != null && onSwitchChanged != null) ...[
-                Switch(
-                  value: switchValue,
-                  onChanged: onSwitchChanged,
-                ),
-              ],
-              // Exibindo o valor (Temperatura, Umidade, etc.)
-              Text(
-                value,
-                style: const TextStyle(
-                  color: Colors.black,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ],
-          ),
-        ],
       ),
     );
   }

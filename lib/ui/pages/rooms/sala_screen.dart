@@ -1,8 +1,7 @@
-import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:firebase_database/firebase_database.dart';
 
-import '../../widgets/led_rgb_control.dart';
+import '../../utils/card_builder.dart';
 
 class SalaScreen extends StatefulWidget {
   const SalaScreen({super.key});
@@ -12,43 +11,28 @@ class SalaScreen extends StatefulWidget {
 }
 
 class _SalaScreenState extends State<SalaScreen> {
-  String _status = "Desligado";
-  dynamic _circleColor = Colors.grey;
-  dynamic _iconColor = Colors.grey;
-  bool _movimento = false;
+  // Estados para os switches
+  bool lampadaEnabled = false;
+  String temperatura = '22°C';
+  String umidade = '60%';
+  String luminosidade = '0 lx';
 
   final DatabaseReference _db = FirebaseDatabase.instance.ref();
-
-  void captarMovimento() {
-    _db.child("comodos/sala/sensores/movimento").onValue.listen((event) {
-      if (event.snapshot.value != null) {
-        setState(() {
-          _movimento = event.snapshot.value as bool;
-        });
-      }
-    });
-  }
-
-  void _ledHandle(BuildContext context) {
-    setState(() {
-      if (_status == "Desligado") {
-        _status = "Ligado";
-        _db.child("comodos/sala/atuadores/lampada-rgb/on").set(true);
-        _circleColor = Theme.of(context).colorScheme.primaryContainer;
-        _iconColor = Theme.of(context).colorScheme.primary;
-        return;
-      }
-      _status = "Desligado";
-      _db.child("comodos/sala/atuadores/lampada-rgb/on").set(false);
-      _circleColor = Colors.grey;
-      _iconColor = Colors.grey;
-    });
-  }
 
   @override
   void initState() {
     super.initState();
-    captarMovimento(); // Chama a função para iniciar a captura dos dados do Firebase
+    _captarLuminosidade();
+  }
+
+  void _captarLuminosidade() {
+    _db.child("comodos/cozinha/sensores/luminosidade").onValue.listen((event) {
+      if (event.snapshot.value != null) {
+        setState(() {
+          luminosidade = "${event.snapshot.value} lx";
+        });
+      }
+    });
   }
 
   @override
@@ -58,20 +42,62 @@ class _SalaScreenState extends State<SalaScreen> {
         title: const Text("Sala"),
         backgroundColor: Theme.of(context).colorScheme.primaryContainer,
       ),
-      body: Center(
-          child: Column(
-        children: [
-          GestureDetector(
-              onTap: () => _ledHandle(context),
-              child: LedRGBControl(
-                title: "Lâmpada",
-                status: _status,
-                circleColor: _circleColor,
-                iconColor: _iconColor,
-              )),
-          Text("Movimento: $_movimento"),
-        ],
-      )),
+      body: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          children: [
+            // Imagem do ambiente
+            Container(
+              height: 200,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(16),
+                image: const DecorationImage(
+                  image: AssetImage('assets/images/sala_img.jpg'),
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+            const SizedBox(height: 20),
+            // Informações dos dispositivos
+            Expanded(
+              child: GridView.count(
+                crossAxisCount: 2,
+                mainAxisSpacing: 16,
+                crossAxisSpacing: 16,
+                children: [
+                  CardBuilder.buildRGBLedCard(
+                    title: 'Lâmpada',
+                    value: '',
+                    icon: Icons.lightbulb,
+                    context: context,
+                    switchValue: lampadaEnabled,
+                    onSwitchChanged: (value) {
+                      setState(() {
+                        lampadaEnabled = value;
+                      });
+                    },
+                  ),
+                  CardBuilder.buildDeviceCard(
+                    title: 'Temperatura',
+                    value: temperatura,
+                    icon: Icons.thermostat,
+                  ),
+                  CardBuilder.buildDeviceCard(
+                    title: 'Umidade',
+                    value: umidade,
+                    icon: Icons.water_drop,
+                  ),
+                  CardBuilder.buildDeviceCard(
+                    title: 'Luminosidade',
+                    value: luminosidade,
+                    icon: Icons.wb_sunny,
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

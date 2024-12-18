@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../utils/card_builder.dart';
+
 class BanheiroScreen extends StatefulWidget {
   const BanheiroScreen({super.key});
 
@@ -37,7 +39,7 @@ class _BanheiroScreenState extends State<BanheiroScreen> {
             Expanded(
               child: Align(
                 alignment: Alignment.center,
-                child: _buildDeviceCard(
+                child: CardBuilder.buildDeviceCard(
                   title: 'Lâmpada',
                   value: '', // Deixe o valor vazio ou removido
                   icon: Icons.lightbulb,
@@ -52,57 +54,6 @@ class _BanheiroScreenState extends State<BanheiroScreen> {
             ),
           ],
         ),
-      ),
-    );
-  }
-
-  // Método auxiliar para construção do card
-  Widget _buildDeviceCard({
-    required String title,
-    required String value,
-    required IconData icon,
-    bool? switchValue, // Opcional para dispositivos com switches
-    void Function(bool)? onSwitchChanged, // Callback para alternar switches
-  }) {
-    return Card(
-      color: Colors.white,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          // Ícone centralizado
-          Icon(icon, size: 40, color: Colors.green),
-          const SizedBox(height: 10),
-          // Título do dispositivo
-          Text(
-            title,
-            style: const TextStyle(color: Colors.grey),
-          ),
-          const SizedBox(height: 5),
-          // Linha contendo o Switch e o valor
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              // Switch somente para dispositivos com switch
-              if (switchValue != null && onSwitchChanged != null) ...[
-                Switch(
-                  value: switchValue,
-                  onChanged: onSwitchChanged,
-                ),
-              ],
-              // Exibindo o valor (Temperatura, Umidade, etc.)
-              Text(
-                value,
-                style: const TextStyle(
-                  color: Colors.black,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ],
-          ),
-        ],
       ),
     );
   }

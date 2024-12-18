@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_database/firebase_database.dart';
+
+import '../../utils/card_builder.dart';
 
 class CozinhaScreen extends StatefulWidget {
   const CozinhaScreen({super.key});
@@ -12,6 +15,25 @@ class _CozinhaScreenState extends State<CozinhaScreen> {
   bool lampadaEnabled = false;
   String temperatura = '22°C';
   String umidade = '60%';
+  String luminosidade = '0 lx';
+
+  final DatabaseReference _db = FirebaseDatabase.instance.ref();
+
+  @override
+  void initState() {
+    super.initState();
+    _captarLuminosidade();
+  }
+
+  void _captarLuminosidade() {
+    _db.child("comodos/cozinha/sensores/luminosidade").onValue.listen((event) {
+      if (event.snapshot.value != null) {
+        setState(() {
+          luminosidade = "${event.snapshot.value} lx";
+        });
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,9 +65,9 @@ class _CozinhaScreenState extends State<CozinhaScreen> {
                 mainAxisSpacing: 16,
                 crossAxisSpacing: 16,
                 children: [
-                  _buildDeviceCard(
+                  CardBuilder.buildDeviceCard(
                     title: 'Lâmpada',
-                    value: '', // Deixe o valor vazio ou removido
+                    value: '',
                     icon: Icons.lightbulb,
                     switchValue: lampadaEnabled,
                     onSwitchChanged: (value) {
@@ -54,72 +76,26 @@ class _CozinhaScreenState extends State<CozinhaScreen> {
                       });
                     },
                   ),
-                  _buildDeviceCard(
+                  CardBuilder.buildDeviceCard(
                     title: 'Temperatura',
                     value: temperatura,
                     icon: Icons.thermostat,
                   ),
-                  _buildDeviceCard(
+                  CardBuilder.buildDeviceCard(
                     title: 'Umidade',
                     value: umidade,
                     icon: Icons.water_drop,
+                  ),
+                  CardBuilder.buildDeviceCard(
+                    title: 'Luminosidade',
+                    value: luminosidade,
+                    icon: Icons.wb_sunny,
                   ),
                 ],
               ),
             ),
           ],
         ),
-      ),
-    );
-  }
-
-  // Método auxiliar para construção do card
-  Widget _buildDeviceCard({
-    required String title,
-    required String value,
-    required IconData icon,
-    bool? switchValue, // Opcional para dispositivos com switches
-    void Function(bool)? onSwitchChanged, // Callback para alternar switches
-  }) {
-    return Card(
-      color: Colors.white,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          // Ícone centralizado
-          Icon(icon, size: 40, color: Colors.black),
-          const SizedBox(height: 10),
-          // Título do dispositivo
-          Text(
-            title,
-            style: const TextStyle(color: Colors.grey),
-          ),
-          const SizedBox(height: 5),
-          // Linha contendo o Switch e o valor
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              // Switch somente para dispositivos com switch
-              if (switchValue != null && onSwitchChanged != null) ...[
-                Switch(
-                  value: switchValue,
-                  onChanged: onSwitchChanged,
-                ),
-              ],
-              // Exibindo o valor (Temperatura, Umidade, etc.)
-              Text(
-                value,
-                style: const TextStyle(
-                  color: Colors.black,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ],
-          ),
-        ],
       ),
     );
   }
