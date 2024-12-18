@@ -12,29 +12,31 @@ class ArControlScreen extends StatefulWidget {
 }
 
 class _ArControlScreenState extends State<ArControlScreen> {
-
   final DatabaseReference _db = FirebaseDatabase.instance.ref();
 
+  // Variáveis para controle de temperatura
   double temperatura = 15;
   double minTemperatura = 14;
   double maxTemperatura = 30;
   int tempInt = 0;
 
-  List<String> modeTitles = [
-    'Auto',
-    'Cool',
-    'Dry',
-  ];
-
+  // Listas de modos e ícones
+  List<String> modeTitles = ['Auto', 'Cool', 'Dry'];
   List<IconData> modeIcons = [
     Icons.water_drop,
     Icons.ac_unit,
     Icons.mode_fan_off,
   ];
 
+  // Índice do botão atualmente ativo
+  int? activeIndex;
+
+  // Carrega a temperatura inicial do Firebase
   Future<void> _loadInitialTemperature() async {
     try {
-      final snapshot = await _db.child("comodos/quarto/atuadores/ar-condicionado/valor").once();
+      final snapshot = await _db
+          .child("comodos/quarto/atuadores/ar-condicionado/valor")
+          .once();
       final value = snapshot.snapshot.value;
       if (value != null) {
         setState(() {
@@ -85,6 +87,7 @@ class _ArControlScreenState extends State<ArControlScreen> {
       ),
       body: Column(
         children: [
+          // Controle de temperatura
           Expanded(
             flex: 1,
             child: Column(
@@ -130,7 +133,10 @@ class _ArControlScreenState extends State<ArControlScreen> {
                         value: temperatura,
                         onChanged: (value) {
                           tempInt = value.toInt();
-                          _db.child("comodos/quarto/atuadores/ar-condicionado/valor").set(tempInt);
+                          _db
+                              .child(
+                                  "comodos/quarto/atuadores/ar-condicionado/valor")
+                              .set(tempInt);
                           setState(() {
                             temperatura = value;
                           });
@@ -205,6 +211,7 @@ class _ArControlScreenState extends State<ArControlScreen> {
               ],
             ),
           ),
+          // Botões de modo
           Expanded(
             flex: 2,
             child: Padding(
@@ -228,31 +235,28 @@ class _ArControlScreenState extends State<ArControlScreen> {
                   Expanded(
                     child: ListView.separated(
                       itemCount: modeTitles.length,
-                      itemBuilder: (context, index) => ModeButton(
-                        title: modeTitles[index],
-                        icon: modeIcons[index],
-                      ),
+                      itemBuilder: (context, index) {
+                        return ModeButton(
+                          title: modeTitles[index],
+                          icon: modeIcons[index],
+                          isEnabled:
+                              activeIndex == index, // Verifica se está ativo
+                          onTap: () {
+                            setState(() {
+                              activeIndex = index; // Atualiza o botão ativo
+                            });
+                            _db
+                                .child(
+                                    "comodos/quarto/atuadores/ar-condicionado/modo")
+                                .set(modeTitles[index]); // Salva no Firebase
+                          },
+                        );
+                      },
                       separatorBuilder: (context, index) => SizedBox(width: 30),
                       scrollDirection: Axis.horizontal,
-                      physics: NeverScrollableScrollPhysics(),
                     ),
                   ),
-                  SizedBox(height: height / 25),
-                  Padding(
-                    padding: EdgeInsets.only(left: 20),
-                    child: Row(
-                      children: [
-                        Text(
-                          'Velocidade do Ventilador',
-                          style: TextStyle(
-                            fontSize: 20,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  SizedBox(height: 10),
-                  SizedBox(height: height / 25),
+                  SizedBox(height: 50),
                 ],
               ),
             ),

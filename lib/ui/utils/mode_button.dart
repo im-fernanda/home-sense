@@ -1,47 +1,38 @@
-import 'package:firebase_database/firebase_database.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../utils/constants.dart';
+import 'Constants.dart';
 
-class ModeButton extends StatefulWidget {
-  ModeButton({super.key, required this.title, required this.icon});
+class ModeButton extends StatelessWidget {
+  final String title;
+  final IconData icon;
+  final bool isEnabled;
+  final VoidCallback onTap;
 
-  String title;
-  IconData icon;
-
-  @override
-  State<ModeButton> createState() => _ModeButtonState();
-}
-
-class _ModeButtonState extends State<ModeButton> {
-
-  final DatabaseReference _db = FirebaseDatabase.instance.ref();
-
-  bool enabled = false;
+  const ModeButton({
+    super.key,
+    required this.title,
+    required this.icon,
+    required this.isEnabled,
+    required this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        _db.child("comodos/quarto/atuadores/ar-condicionado/modo").set(widget.title);
-        setState(() {
-          enabled = !enabled;
-        });
-      },
+      onTap: onTap,
       child: Container(
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 40 - (enabled ? 4 : 0)),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(
-                widget.icon,
-                color: Constants.greyColor,
-              ),
-              SizedBox(height: 5),
-              Text(widget.title),
-            ],
-          ),
+        padding: EdgeInsets.symmetric(horizontal: 40 - (isEnabled ? 4 : 0)),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              icon,
+              color: Constants.greyColor,
+            ),
+            SizedBox(height: 5),
+            Text(title),
+          ],
         ),
         decoration: BoxDecoration(
           gradient: LinearGradient(
@@ -68,7 +59,7 @@ class _ModeButtonState extends State<ModeButton> {
               spreadRadius: 1,
             ),
           ],
-          border: enabled
+          border: isEnabled
               ? Border.all(
                   width: 4,
                   color: Constants.pinkColor,
