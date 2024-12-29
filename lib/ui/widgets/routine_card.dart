@@ -10,9 +10,9 @@ class RoutineCard extends StatelessWidget {
 
   IconData _getIcon(String routineTitle) {
     switch (routineTitle) {
-      case "Coming":
+      case "Chegada":
         return Icons.meeting_room_outlined;
-      case "Living":
+      case "Saída":
         return Icons.door_back_door_outlined;
       default:
         return Icons.error_outline;
@@ -21,9 +21,9 @@ class RoutineCard extends StatelessWidget {
 
   String? _getImage(String routineTitle) {
     switch (routineTitle) {
-      case "Coming":
+      case "Chegada":
         return "chegada_img.jpg";
-      case "Living":
+      case "Saída":
         return "saida_img.jpg";
       default:
         return null;

@@ -49,7 +49,8 @@ class _OutsideAreaState extends State<OutsideArea> {
                 ],
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
                 child: Column(
                   children: [
                     Container(
@@ -75,8 +76,9 @@ class _OutsideAreaState extends State<OutsideArea> {
                           const Expanded(
                             child: Center(
                               child: Text(
-                                "Outside Area",
-                                style: TextStyle(fontSize: 22, color: Colors.white),
+                                "Área externa",
+                                style: TextStyle(
+                                    fontSize: 22, color: Colors.white),
                               ),
                             ),
                           ),
@@ -96,9 +98,10 @@ class _OutsideAreaState extends State<OutsideArea> {
                             ),
                             child: Column(
                               children: [
-                                Text("Temperature"),
+                                Text("Temperatura"),
                                 Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
                                       "26° C",
@@ -124,9 +127,10 @@ class _OutsideAreaState extends State<OutsideArea> {
                                   color: Colors.black12,
                                 ),
                                 SizedBox(height: 12),
-                                Text("Humidity"),
+                                Text("Umidade"),
                                 Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
                                       "47%",
@@ -160,9 +164,10 @@ class _OutsideAreaState extends State<OutsideArea> {
                             ),
                             child: Column(
                               children: [
-                                Text("Brightness"),
+                                Text("Luminosidade"),
                                 Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
                                       "32%",
@@ -189,10 +194,11 @@ class _OutsideAreaState extends State<OutsideArea> {
                                 ),
                                 SizedBox(height: 30),
                                 Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
-                                      "Lights",
+                                      "Refletor",
                                       style: TextStyle(
                                           color: Colors.black,
                                           fontSize: 18,

@@ -11,7 +11,6 @@ class Garage extends StatefulWidget {
 }
 
 class _GarageState extends State<Garage> {
-
   bool isSwicthToOpenGateEnabled = true;
   bool isSwicthToCloseGateEnabled = false;
   bool gateIsOpen = false;
@@ -53,7 +52,8 @@ class _GarageState extends State<Garage> {
                 ],
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
                 child: Column(
                   children: [
                     Container(
@@ -79,8 +79,9 @@ class _GarageState extends State<Garage> {
                           const Expanded(
                             child: Center(
                               child: Text(
-                                "Garage",
-                                style: TextStyle(fontSize: 22, color: Colors.white),
+                                "Garagem",
+                                style: TextStyle(
+                                    fontSize: 22, color: Colors.white),
                               ),
                             ),
                           ),
@@ -100,13 +101,14 @@ class _GarageState extends State<Garage> {
                             ),
                             child: Column(
                               children: [
-                                Text("Gate Control"),
+                                Text("Portão"),
                                 SizedBox(height: 8),
                                 Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
-                                      "Open",
+                                      "Abrir",
                                       style: TextStyle(
                                           color: Colors.black,
                                           fontSize: 18,
@@ -121,13 +123,16 @@ class _GarageState extends State<Garage> {
                                           value: gateIsOpen,
                                           activeColor: Colors.amber,
                                           onChanged: isSwicthToOpenGateEnabled
-                                            ? (bool value) {
-                                            setState(() {
-                                              gateIsOpen = value;
-                                              isSwicthToOpenGateEnabled = false;
-                                              isSwicthToCloseGateEnabled = true;
-                                            }); 
-                                          } : (_) {},
+                                              ? (bool value) {
+                                                  setState(() {
+                                                    gateIsOpen = value;
+                                                    isSwicthToOpenGateEnabled =
+                                                        false;
+                                                    isSwicthToCloseGateEnabled =
+                                                        true;
+                                                  });
+                                                }
+                                              : (_) {},
                                         ),
                                       ),
                                     ),
@@ -141,10 +146,11 @@ class _GarageState extends State<Garage> {
                                 ),
                                 SizedBox(height: 22),
                                 Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
-                                      "Close",
+                                      "Fechar",
                                       style: TextStyle(
                                           color: Colors.black,
                                           fontSize: 18,
@@ -158,14 +164,17 @@ class _GarageState extends State<Garage> {
                                         child: Switch(
                                           value: !gateIsOpen,
                                           activeColor: Colors.amber,
-                                          onChanged: isSwicthToCloseGateEnabled 
-                                            ? (bool value) {
-                                            setState(() {
-                                              gateIsOpen = !value;
-                                              isSwicthToCloseGateEnabled = false;
-                                              isSwicthToOpenGateEnabled = true;
-                                            });
-                                          } : (_) {},
+                                          onChanged: isSwicthToCloseGateEnabled
+                                              ? (bool value) {
+                                                  setState(() {
+                                                    gateIsOpen = !value;
+                                                    isSwicthToCloseGateEnabled =
+                                                        false;
+                                                    isSwicthToOpenGateEnabled =
+                                                        true;
+                                                  });
+                                                }
+                                              : (_) {},
                                         ),
                                       ),
                                     ),
@@ -186,9 +195,10 @@ class _GarageState extends State<Garage> {
                             ),
                             child: Column(
                               children: [
-                                Text("Brightness"),
+                                Text("Luminosidade"),
                                 Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
                                       "32%",
@@ -215,10 +225,11 @@ class _GarageState extends State<Garage> {
                                 ),
                                 SizedBox(height: 20),
                                 Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
-                                      "Lights",
+                                      "Lâmpada",
                                       style: TextStyle(
                                           color: Colors.black,
                                           fontSize: 18,

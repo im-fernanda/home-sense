@@ -11,58 +11,57 @@ class LedRgbCard extends StatefulWidget {
 }
 
 class _LedRgbCardState extends State<LedRgbCard> {
-
   Color color = Colors.amber;
   bool light = false;
 
   Widget _buildColorPicker() => BlockPicker(
-    pickerColor: color,
-    availableColors: [
-      Colors.red,
-      Colors.green,
-      Colors.blue,
-      Colors.white,
-      Colors.orange,
-      Colors.lightGreenAccent,
-      Colors.lightBlueAccent,
-      Colors.white,
-      Colors.yellow,
-      Colors.cyanAccent,
-      Colors.purple,
-      Colors.white
-    ],
-    onColorChanged: (color) => setState(() => this.color = color),
-  );
+        pickerColor: color,
+        availableColors: [
+          Colors.red,
+          Colors.green,
+          Colors.blue,
+          Colors.white,
+          Colors.orange,
+          Colors.lightGreenAccent,
+          Colors.lightBlueAccent,
+          Colors.white,
+          Colors.yellow,
+          Colors.cyanAccent,
+          Colors.purple,
+          Colors.white
+        ],
+        onColorChanged: (color) => setState(() => this.color = color),
+      );
 
   void _pickColor(BuildContext context) => showDialog(
-    context: context,
-    builder: (context) => AlertDialog(
-      title: Text("Pick your light color"),
-      content: SingleChildScrollView(
-        physics: NeverScrollableScrollPhysics(),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            SizedBox(
-              height: 220,
-              child: _buildColorPicker(),
-            ),
-            SizedBox(height: 16),
-            TextButton(
-              child: Text(
-                "Select",
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 20,
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text("Pick your light color"),
+          content: SingleChildScrollView(
+            physics: NeverScrollableScrollPhysics(),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                SizedBox(
+                  height: 220,
+                  child: _buildColorPicker(),
                 ),
-              ),
-              onPressed: () => Navigator.of(context).pop(),
+                SizedBox(height: 16),
+                TextButton(
+                  child: Text(
+                    "Select",
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 20,
+                    ),
+                  ),
+                  onPressed: () => Navigator.of(context).pop(),
+                ),
+              ],
             ),
-          ],
+          ),
         ),
-      ),
-    ),
-  );
+      );
 
   @override
   Widget build(BuildContext context) {
@@ -75,29 +74,27 @@ class _LedRgbCardState extends State<LedRgbCard> {
           height: 180,
           padding: EdgeInsets.all(16),
           decoration: BoxDecoration(
-            color: const Color.fromARGB(255, 247, 247, 247),
-            borderRadius: BorderRadius.circular(33)
-          ),
+              color: const Color.fromARGB(255, 247, 247, 247),
+              borderRadius: BorderRadius.circular(33)),
           child: Column(
             children: [
-              Text("Brightness"),
+              Text("Luminosidade"),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
                     "32%",
                     style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 26,
-                      fontWeight: FontWeight.w600
-                    ),  
+                        color: Colors.black,
+                        fontSize: 26,
+                        fontWeight: FontWeight.w600),
                   ),
                   SizedBox(
                     height: 40,
                     width: 40,
                     child: Icon(
                       Icons.lightbulb_outline,
-                    size: 30,
+                      size: 30,
                     ),
                   )
                 ],
@@ -113,12 +110,11 @@ class _LedRgbCardState extends State<LedRgbCard> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "Lights",
+                    "Lâmpada",
                     style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 18,
-                      fontWeight: FontWeight.w600
-                    ),  
+                        color: Colors.black,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w600),
                   ),
                   SizedBox(
                     height: 40,

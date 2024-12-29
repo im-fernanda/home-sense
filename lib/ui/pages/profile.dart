@@ -14,7 +14,6 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
-
   String username = User.username;
   String email = User.email;
 
@@ -26,7 +25,8 @@ class _ProfileState extends State<Profile> {
 
     try {
       authService.signOut();
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Login()));
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => Login()));
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -37,37 +37,46 @@ class _ProfileState extends State<Profile> {
   }
 
   void _editProfile(BuildContext context) => showDialog(
-    context: context,
-    builder: (context) => AlertDialog(
-      title: const Text("Edit your profile"),
-      content: Wrap(
-        children: [
-          Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              CustomTextField(hintText: "Username", obscure: false, controller: usernameController,),
-              const SizedBox(height: 16),
-              CustomTextField(hintText: "Email", obscure: false, controller: emailController,),
-              const SizedBox(height: 16),
-              MaterialButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                height: 50,
-                color: Colors.amber,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(50),
-                ),
-                child: const Center(
-                  child: Text("Edit", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),),
-                ),
+      context: context,
+      builder: (context) => AlertDialog(
+            title: const Text("Edit your profile"),
+            content: Wrap(children: [
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  CustomTextField(
+                    hintText: "Username",
+                    obscure: false,
+                    controller: usernameController,
+                  ),
+                  const SizedBox(height: 16),
+                  CustomTextField(
+                    hintText: "Email",
+                    obscure: false,
+                    controller: emailController,
+                  ),
+                  const SizedBox(height: 16),
+                  MaterialButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    height: 50,
+                    color: Colors.amber,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(50),
+                    ),
+                    child: const Center(
+                      child: Text(
+                        "Edit",
+                        style: TextStyle(
+                            color: Colors.white, fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ),
+                ],
               ),
-            ],
-          ),
-        ]
-      ),
-    )
-  );
+            ]),
+          ));
 
   @override
   Widget build(BuildContext context) {
@@ -76,7 +85,7 @@ class _ProfileState extends State<Profile> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         title: const Text(
-          "Account",
+          "Conta",
           style: TextStyle(fontSize: 22, color: Colors.black),
         ),
         leading: IconButton(
@@ -95,10 +104,7 @@ class _ProfileState extends State<Profile> {
               children: [
                 const SizedBox(height: 16),
                 Image.asset(
-                  height: 150,
-                  width: 150,
-                  "assets/images/avatar.png"
-                ),
+                    height: 150, width: 150, "assets/images/avatar.png"),
                 Text(
                   username,
                   style: const TextStyle(
@@ -124,16 +130,19 @@ class _ProfileState extends State<Profile> {
                     borderRadius: BorderRadius.circular(50),
                   ),
                   child: const Center(
-                    child: Text("Edit Profile", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),),
+                    child: Text(
+                      "Editar Perfil",
+                      style: TextStyle(
+                          color: Colors.white, fontWeight: FontWeight.bold),
+                    ),
                   ),
                 ),
                 const SizedBox(height: 16),
                 IconButton(
-                  onPressed: () {
-                    SignOut();
-                  },
-                  icon: const Icon(Icons.logout)
-                )
+                    onPressed: () {
+                      SignOut();
+                    },
+                    icon: const Icon(Icons.logout))
               ],
             ),
           ),

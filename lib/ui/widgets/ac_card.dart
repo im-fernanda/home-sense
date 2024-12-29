@@ -12,23 +12,22 @@ class AcCard extends StatefulWidget {
 }
 
 class _AcCardState extends State<AcCard> {
-
   bool ac = false;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onLongPress: () {
-        Navigator.push(context, MaterialPageRoute(builder: (context) => AcController()));
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => AcController()));
       },
       child: Container(
         height: 150,
         width: double.infinity,
         padding: EdgeInsets.all(16),
         decoration: BoxDecoration(
-          color: const Color.fromARGB(255, 247, 247, 247),
-          borderRadius: BorderRadius.circular(33)
-        ),
+            color: const Color.fromARGB(255, 247, 247, 247),
+            borderRadius: BorderRadius.circular(33)),
         child: Column(
           children: [
             Row(
@@ -37,10 +36,9 @@ class _AcCardState extends State<AcCard> {
                 Text(
                   "AC - TURBO MODE",
                   style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 22,
-                    fontWeight: FontWeight.w600
-                  ),  
+                      color: Colors.black,
+                      fontSize: 22,
+                      fontWeight: FontWeight.w600),
                 ),
                 SizedBox(
                   height: 40,
@@ -63,29 +61,27 @@ class _AcCardState extends State<AcCard> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "18° C",
+                  "18°C",
                   style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 22,
-                    fontWeight: FontWeight.w600
-                  ),  
+                      color: Colors.black,
+                      fontSize: 22,
+                      fontWeight: FontWeight.w600),
                 ),
                 SizedBox(
-                  height: 40,
-                  width: 40,
-                  child: Transform.scale(
-                    scale: 0.8,
-                    child: Switch(
-                      value: ac,
-                      activeColor: Colors.amber,
-                      onChanged: (bool value) {
-                        setState(() {
-                          ac = value;
-                        });
-                      },
-                     ),
-                  )
-                )
+                    height: 40,
+                    width: 40,
+                    child: Transform.scale(
+                      scale: 0.8,
+                      child: Switch(
+                        value: ac,
+                        activeColor: Colors.amber,
+                        onChanged: (bool value) {
+                          setState(() {
+                            ac = value;
+                          });
+                        },
+                      ),
+                    ))
               ],
             )
           ],

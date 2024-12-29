@@ -14,18 +14,17 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-
   final PageController _pageController = PageController(initialPage: 0);
 
   String username = User.username;
 
   List roomList = [
-    "Living Room",
-    "Bedroom",
-    "Kitchen",
-    "Bathroom",
-    "Garage",
-    "Outside Area"
+    "Sala de Estar",
+    "Quarto",
+    "Cozinha",
+    "Banheiro",
+    "Garagem",
+    "Área Externa"
   ];
 
   List imageList = [
@@ -37,10 +36,7 @@ class _HomeState extends State<Home> {
     "externo_img.jpg"
   ];
 
-  List routineList = [
-    "Coming",
-    "Living"
-  ];
+  List routineList = ["Chegada", "Saída"];
 
   @override
   Widget build(BuildContext context) {
@@ -57,31 +53,40 @@ class _HomeState extends State<Home> {
                     child: Text(
                       "Hello, ${username}",
                       style: const TextStyle(
-                        color: Colors.black,
-                        fontSize: 22,
-                        fontWeight: FontWeight.w600
-                      ),
+                          color: Colors.black,
+                          fontSize: 22,
+                          fontWeight: FontWeight.w600),
                     ),
                   ),
-                  const Icon(Icons.notifications_outlined, color: Colors.black, size: 30,),
-                  const SizedBox(width: 16,),
+                  const Icon(
+                    Icons.notifications_outlined,
+                    color: Colors.black,
+                    size: 30,
+                  ),
+                  const SizedBox(
+                    width: 16,
+                  ),
                   InkWell(
-                    onTap: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => Profile()));
-                    },
-                    child: const Icon(Icons.account_circle_outlined, color: Colors.black, size: 30,)
-                  )
+                      onTap: () {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => Profile()));
+                      },
+                      child: const Icon(
+                        Icons.account_circle_outlined,
+                        color: Colors.black,
+                        size: 30,
+                      ))
                 ],
               ),
             ),
             const Padding(
               padding: EdgeInsets.symmetric(horizontal: 24, vertical: 32),
               child: Text(
-                "My Rooms",
+                "Meus cômodos",
                 style: TextStyle(
-                color: Colors.black,
-                fontSize: 22,
-                fontWeight: FontWeight.w400,
+                  color: Colors.black,
+                  fontSize: 22,
+                  fontWeight: FontWeight.w400,
                 ),
               ),
             ),
@@ -91,43 +96,44 @@ class _HomeState extends State<Home> {
                 height: 200,
                 width: double.infinity,
                 child: ListView.builder(
-                  controller: _pageController,
-                  scrollDirection: Axis.horizontal,
-                  itemCount: roomList.length,
-                  itemBuilder: (context, index) {
-                    return RoomCard(roomImage: imageList[index], roomTitle: roomList[index]);
-                  }
-                ),
+                    controller: _pageController,
+                    scrollDirection: Axis.horizontal,
+                    itemCount: roomList.length,
+                    itemBuilder: (context, index) {
+                      return RoomCard(
+                          roomImage: imageList[index],
+                          roomTitle: roomList[index]);
+                    }),
               ),
             ),
-            const SizedBox(height: 16,),
+            const SizedBox(
+              height: 16,
+            ),
             Center(
-              child: SmoothPageIndicator(
-                controller: _pageController, 
-                count: 3,
-                effect: WormEffect(
+                child: SmoothPageIndicator(
+              controller: _pageController,
+              count: 3,
+              effect: WormEffect(
                   dotColor: Colors.grey.withOpacity(0.3),
                   activeDotColor: Colors.amber,
                   dotHeight: 10,
                   dotWidth: 10,
-                  spacing: 5
-                ),
-              )
-            ),
+                  spacing: 5),
+            )),
             const Padding(
               padding: EdgeInsets.symmetric(horizontal: 24, vertical: 32),
               child: Text(
-                "My Routines",
+                "Minhas rotinas",
                 style: TextStyle(
-                color: Colors.black,
-                fontSize: 22,
-                fontWeight: FontWeight.w400
-                ),
+                    color: Colors.black,
+                    fontSize: 22,
+                    fontWeight: FontWeight.w400),
               ),
             ),
             Expanded(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
                 child: GridView.builder(
                   scrollDirection: Axis.vertical,
                   itemCount: 2,
@@ -135,7 +141,8 @@ class _HomeState extends State<Home> {
                     crossAxisCount: 2,
                     crossAxisSpacing: 10,
                     mainAxisSpacing: 10,
-                    childAspectRatio: 0.8, // Controla a proporção entre largura e altura
+                    childAspectRatio:
+                        0.8, // Controla a proporção entre largura e altura
                   ),
                   itemBuilder: (context, index) {
                     return RoutineCard(routineTitle: routineList[index]);

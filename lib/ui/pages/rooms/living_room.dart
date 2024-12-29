@@ -10,7 +10,6 @@ class LivingRoom extends StatefulWidget {
 }
 
 class _LivingRoomState extends State<LivingRoom> {
-  
   bool light = false;
 
   @override
@@ -49,7 +48,8 @@ class _LivingRoomState extends State<LivingRoom> {
                 ],
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
                 child: Column(
                   children: [
                     Container(
@@ -75,8 +75,9 @@ class _LivingRoomState extends State<LivingRoom> {
                           const Expanded(
                             child: Center(
                               child: Text(
-                                "Living Room",
-                                style: TextStyle(fontSize: 22, color: Colors.white),
+                                "Sala de estar",
+                                style: TextStyle(
+                                    fontSize: 22, color: Colors.white),
                               ),
                             ),
                           ),
@@ -96,12 +97,13 @@ class _LivingRoomState extends State<LivingRoom> {
                             ),
                             child: Column(
                               children: [
-                                Text("Temperature"),
+                                Text("Temperatura"),
                                 Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
-                                      "26° C",
+                                      "26°C",
                                       style: TextStyle(
                                           color: Colors.black,
                                           fontSize: 26,
@@ -124,9 +126,10 @@ class _LivingRoomState extends State<LivingRoom> {
                                   color: Colors.black12,
                                 ),
                                 SizedBox(height: 12),
-                                Text("Humidity"),
+                                Text("Umidade"),
                                 Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
                                       "47%",
@@ -159,21 +162,19 @@ class _LivingRoomState extends State<LivingRoom> {
                       width: double.infinity,
                       padding: EdgeInsets.all(16),
                       decoration: BoxDecoration(
-                        color: const Color.fromARGB(255, 247, 247, 247),
-                        borderRadius: BorderRadius.circular(33)
-                      ),
+                          color: const Color.fromARGB(255, 247, 247, 247),
+                          borderRadius: BorderRadius.circular(33)),
                       child: Column(
                         children: [
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                "MOTION DETECTOR",
+                                "DETECTOR DE MOVIMENTO",
                                 style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 22,
-                                  fontWeight: FontWeight.w600
-                                ),  
+                                    color: Colors.black,
+                                    fontSize: 22,
+                                    fontWeight: FontWeight.w600),
                               ),
                               SizedBox(
                                 height: 40,
@@ -198,10 +199,9 @@ class _LivingRoomState extends State<LivingRoom> {
                               Text(
                                 "No movement detected",
                                 style: TextStyle(
-                                  color: Colors.grey,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w600
-                                ),  
+                                    color: Colors.grey,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w600),
                               ),
                             ],
                           )

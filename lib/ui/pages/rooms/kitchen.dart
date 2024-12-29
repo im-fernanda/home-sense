@@ -11,7 +11,6 @@ class Kitchen extends StatefulWidget {
 }
 
 class _KitchenState extends State<Kitchen> {
-
   bool light = false;
 
   @override
@@ -50,7 +49,8 @@ class _KitchenState extends State<Kitchen> {
                 ],
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
                 child: Column(
                   children: [
                     Container(
@@ -76,8 +76,9 @@ class _KitchenState extends State<Kitchen> {
                           const Expanded(
                             child: Center(
                               child: Text(
-                                "Kitchen",
-                                style: TextStyle(fontSize: 22, color: Colors.white),
+                                "Cozinha",
+                                style: TextStyle(
+                                    fontSize: 22, color: Colors.white),
                               ),
                             ),
                           ),
@@ -97,9 +98,10 @@ class _KitchenState extends State<Kitchen> {
                             ),
                             child: Column(
                               children: [
-                                Text("Temperature"),
+                                Text("Temperatura"),
                                 Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
                                       "26° C",
@@ -125,9 +127,10 @@ class _KitchenState extends State<Kitchen> {
                                   color: Colors.black12,
                                 ),
                                 SizedBox(height: 12),
-                                Text("Humidity"),
+                                Text("Umidade"),
                                 Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
                                       "47%",
@@ -161,9 +164,10 @@ class _KitchenState extends State<Kitchen> {
                             ),
                             child: Column(
                               children: [
-                                Text("Brightness"),
+                                Text("Luminosidade"),
                                 Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
                                       "32%",
@@ -190,10 +194,11 @@ class _KitchenState extends State<Kitchen> {
                                 ),
                                 SizedBox(height: 30),
                                 Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
-                                      "Lights",
+                                      "Lâmpada",
                                       style: TextStyle(
                                           color: Colors.black,
                                           fontSize: 18,
