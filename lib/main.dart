@@ -1,9 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:home_sense/services/location_service.dart';
-import 'package:home_sense/theme/theme.dart';
-import 'package:home_sense/ui/pages/home_page.dart';
+import 'package:home_sense/ui/pages/home.dart';
 import 'package:home_sense/ui/widgets/auth_checker.dart';
 import 'package:provider/provider.dart';
 import 'core/di/configure_providers.dart';
@@ -32,16 +32,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: data.providers,
-      child: MaterialApp(
+      child: const MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'House Sense',
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepOrange),
-          useMaterial3: true,
-        ),
-        darkTheme: ThemeData.dark(),
-        themeMode: ThemeMode.system,
-        home: const AuthChecker(),
+        home: AuthChecker(),
       ),
     );
   }

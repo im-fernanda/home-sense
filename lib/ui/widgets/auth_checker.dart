@@ -1,7 +1,8 @@
-import 'package:home_sense/ui/pages/home_page.dart';
-import 'package:home_sense/ui/pages/login_or_register_page.dart';
+import 'package:home_sense/ui/pages/login.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+
+import '../pages/home.dart';
 
 class AuthChecker extends StatelessWidget {
   const AuthChecker({super.key});
@@ -12,7 +13,7 @@ class AuthChecker extends StatelessWidget {
       body: StreamBuilder(
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) =>
-            snapshot.hasData ? const HomePage() : const LoginOrRegisterPage(),
+            snapshot.hasData ? const Home() : const Login(),
       ),
     );
   }

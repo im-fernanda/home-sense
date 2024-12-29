@@ -1,128 +1,77 @@
 import 'package:flutter/material.dart';
+import 'package:home_sense/ui/pages/rooms/living_room.dart';
 
-import '../pages/home_page.dart';
-import '../pages/rooms/banheiro_screen.dart';
-import '../pages/rooms/cozinha_screen.dart';
-import '../pages/rooms/externo_screen.dart';
-import '../pages/rooms/garagem_screen.dart';
-import '../pages/rooms/quarto_screen.dart';
-import '../pages/rooms/sala_screen.dart';
+import '../pages/rooms/bathroom.dart';
+import '../pages/rooms/bedroom.dart';
+import '../pages/rooms/garage.dart';
+import '../pages/rooms/kitchen.dart';
+import '../pages/rooms/outside_area.dart';
 
 class RoomCard extends StatelessWidget {
-  const RoomCard({
+  RoomCard({
     super.key,
-    required this.rooms,
-    required this.index,
-    required this.dispositivosConectados,
+    required this.roomImage,
+    required this.roomTitle
   });
 
-  final List rooms;
-  final int index;
-  final List<int> dispositivosConectados;
+  String roomImage;
+  String roomTitle;
+
+  void _navigateToRoom(roomTitle, context) {
+    switch(roomTitle) {
+      case "Living Room":
+        Navigator.push(context, MaterialPageRoute(builder: (context) => LivingRoom()));
+        return;
+      case "Bedroom":
+        Navigator.push(context, MaterialPageRoute(builder: (context) => Bedroom()));
+        return;
+      case "Kitchen":
+        Navigator.push(context, MaterialPageRoute(builder: (context) => Kitchen()));
+        return;
+      case "Bathroom":
+        Navigator.push(context, MaterialPageRoute(builder: (context) => Bathroom()));
+        return;
+      case "Garage":
+        Navigator.push(context, MaterialPageRoute(builder: (context) => Garage()));
+        return;
+      case "Outside Area":
+        Navigator.push(context, MaterialPageRoute(builder: (context) => OutsideArea()));
+        return;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        navigateToRoom(rooms[index], context);
-      },
-      child: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-        height: MediaQuery.of(context).size.height * 0.2, // Altura do card
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(16),
-          image: DecorationImage(
-            image: AssetImage(
-                'assets/images/${rooms[index].toLowerCase()}_img.jpg'),
-            fit: BoxFit.cover,
-          ),
-        ),
-        child: Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(16),
-            gradient: LinearGradient(
-              colors: [
-                Colors.black.withOpacity(0.6),
-                Colors.transparent,
-              ],
-              begin: Alignment.bottomCenter,
-              end: Alignment.topCenter,
+    return Padding(
+      padding: const EdgeInsets.only(right: 16),
+      child: Stack(
+        alignment: Alignment.bottomCenter,
+        children: [
+          GestureDetector(
+            onTap: () => _navigateToRoom(roomTitle, context),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(22),
+              child: Image.asset(
+                'assets/images/$roomImage',
+                fit: BoxFit.cover,
+                height: 200,
+                width: 200,
+                ),
             ),
           ),
-          child: Padding(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Text(
-                  rooms[index],
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 22,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  'Dispositivos conectados: ${dispositivosConectados[index]}',
-                  style: const TextStyle(
-                    color: Colors.white70,
-                    fontSize: 16,
-                  ),
-                ),
-              ],
+          Padding(
+            padding: const EdgeInsets.only(bottom: 16),
+            child: Text(
+              roomTitle,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 18,
+                fontWeight: FontWeight.w600
+              ),
             ),
-          ),
-        ),
+          )
+        ],
       ),
     );
-  }
-}
-
-void navigateToRoom(String room, BuildContext context) {
-  switch (room) {
-    case "Sala":
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => SalaScreen()),
-      );
-      break;
-    case "Quarto":
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => QuartoScreen()),
-      );
-      break;
-    case "Cozinha":
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => CozinhaScreen()),
-      );
-      break;
-    case "Banheiro":
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => BanheiroScreen()),
-      );
-      break;
-    case "Garagem":
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => GaragemScreen()),
-      );
-      break;
-    case "Externo":
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => ExternoScreen()),
-      );
-      break;
-    default:
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => HomePage()),
-      );
-      break;
   }
 }

@@ -18,6 +18,10 @@ dependencies:
   geolocator: ^13.0.2
   flutter_local_notifications: ^18.0.1
   flutter_native_splash: ^2.4.3
+  material_design_icons_flutter: ^7.0.7296
+  flutter_colorpicker: ^1.1.0
+  smooth_page_indicator: ^1.2.0+3
+  animate_do: ^3.3.4
 
 dev_dependencies:
   flutter_launcher_icons: ^0.14.1
@@ -36,6 +40,9 @@ flutter:
     - assets/images/quarto_img.jpg
     - assets/images/externo_img.jpg
     - assets/images/garagem_img.jpg
+    - assets/images/chegada_img.jpg
+    - assets/images/saida_img.jpg
+    - assets/images/avatar.png
     - assets/icon.png
     - assets/banner.jpg
 
