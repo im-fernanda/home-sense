@@ -5,6 +5,7 @@ import 'package:home_sense/ui/pages/register.dart';
 import 'package:provider/provider.dart';
 
 import '../../domain/user.dart';
+import '../widgets/custom_password_field.dart';
 import '../widgets/custom_text_field.dart';
 
 class Login extends StatefulWidget {
@@ -18,6 +19,8 @@ class _LoginState extends State<Login> {
   final usernameController = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+
+  late bool obscured = true;
 
   void SignIn() async {
     final authService = Provider.of<AuthService>(context, listen: false);
@@ -34,6 +37,12 @@ class _LoginState extends State<Login> {
         ),
       );
     }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    obscured = true;
   }
 
   @override
@@ -128,9 +137,8 @@ class _LoginState extends State<Login> {
                                 obscure: false,
                                 controller: emailController,
                               ),
-                              CustomTextField(
+                              CustomPasswordFormField(
                                 hintText: "Senha",
-                                obscure: true,
                                 controller: passwordController,
                               ),
                             ],

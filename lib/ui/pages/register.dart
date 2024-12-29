@@ -2,6 +2,7 @@ import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:home_sense/ui/pages/home.dart';
 import 'package:home_sense/ui/pages/login.dart';
+import 'package:home_sense/ui/widgets/custom_password_field.dart';
 import 'package:provider/provider.dart';
 
 import '../../services/auth_service.dart';
@@ -24,7 +25,7 @@ class _RegisterState extends State<Register> {
     if (passwordController.value.text != rePasswordController.value.text) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text("The passwords don't match."),
+          content: Text("As senhas não coincidem."),
         ),
       );
       return;
@@ -128,14 +129,12 @@ class _RegisterState extends State<Register> {
                                 obscure: false,
                                 controller: emailController,
                               ),
-                              CustomTextField(
+                              CustomPasswordFormField(
                                 hintText: "Senha",
-                                obscure: true,
                                 controller: passwordController,
                               ),
-                              CustomTextField(
+                              CustomPasswordFormField(
                                 hintText: "Repita a senha",
-                                obscure: true,
                                 controller: rePasswordController,
                               ),
                             ],
