@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:home_sense/ui/widgets/led_rgb_card.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
+import '../../widgets/move_detector_card.dart';
+
 class LivingRoom extends StatefulWidget {
   LivingRoom({super.key});
 
@@ -153,61 +155,11 @@ class _LivingRoomState extends State<LivingRoom> {
                           ),
                         ),
                         SizedBox(width: 16),
-                        LedRgbCard(),
+                        LedRgbCard(comodo: "sala",),
                       ],
                     ),
                     SizedBox(height: 16),
-                    Container(
-                      height: 150,
-                      width: double.infinity,
-                      padding: EdgeInsets.all(16),
-                      decoration: BoxDecoration(
-                          color: const Color.fromARGB(255, 247, 247, 247),
-                          borderRadius: BorderRadius.circular(33)),
-                      child: Column(
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                "DETECTOR DE MOVIMENTO",
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 22,
-                                    fontWeight: FontWeight.w600),
-                              ),
-                              SizedBox(
-                                height: 40,
-                                width: 40,
-                                child: Icon(
-                                  MdiIcons.motionSensorOff,
-                                  size: 30,
-                                ),
-                              )
-                            ],
-                          ),
-                          SizedBox(height: 16),
-                          Container(
-                            height: 1,
-                            width: double.infinity,
-                            color: Colors.black12,
-                          ),
-                          SizedBox(height: 16),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                "No movement detected",
-                                style: TextStyle(
-                                    color: Colors.grey,
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w600),
-                              ),
-                            ],
-                          )
-                        ],
-                      ),
-                    )
+                    MoveDetectorCard()
                   ],
                 ),
               )
@@ -218,3 +170,5 @@ class _LivingRoomState extends State<LivingRoom> {
     );
   }
 }
+
+

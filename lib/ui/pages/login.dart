@@ -1,6 +1,7 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:home_sense/services/auth_service.dart';
+import 'package:home_sense/ui/pages/home.dart';
 import 'package:home_sense/ui/pages/register.dart';
 import 'package:provider/provider.dart';
 
@@ -30,6 +31,9 @@ class _LoginState extends State<Login> {
       User.email = emailController.value.text;
       await authService.signInWithEmailAndPassword(
           emailController.value.text, passwordController.value.text);
+
+      Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => Home()));
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(

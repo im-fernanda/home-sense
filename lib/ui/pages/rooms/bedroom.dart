@@ -5,6 +5,7 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 
 import '../../widgets/ac_card.dart';
 import '../../widgets/led_rgb_card.dart';
+import '../../widgets/sensors_card.dart';
 
 class Bedroom extends StatefulWidget {
   Bedroom({
@@ -86,70 +87,9 @@ class _BedroomState extends State<Bedroom> {
                 SizedBox(height: height / 2 - 120),
                 Row(
                   children: [
-                    Expanded(
-                      child: Container(
-                        height: 180,
-                        padding: EdgeInsets.all(16),
-                        decoration: BoxDecoration(
-                            color: const Color.fromARGB(255, 247, 247, 247),
-                            borderRadius: BorderRadius.circular(33)),
-                        child: Column(
-                          children: [
-                            Text("Temperatura"),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  "26°C",
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 26,
-                                      fontWeight: FontWeight.w600),
-                                ),
-                                SizedBox(
-                                  height: 40,
-                                  width: 40,
-                                  child: Icon(
-                                    MdiIcons.homeThermometerOutline,
-                                    size: 30,
-                                  ),
-                                )
-                              ],
-                            ),
-                            SizedBox(height: 12),
-                            Container(
-                              height: 1,
-                              width: double.infinity,
-                              color: Colors.black12,
-                            ),
-                            SizedBox(height: 12),
-                            Text("Umidade"),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  "47%",
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 26,
-                                      fontWeight: FontWeight.w600),
-                                ),
-                                SizedBox(
-                                  height: 40,
-                                  width: 40,
-                                  child: Icon(
-                                    Icons.water_drop_outlined,
-                                    size: 30,
-                                  ),
-                                )
-                              ],
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
+                    SensorsCard(comodo: "quarto"),
                     SizedBox(width: 16),
-                    LedRgbCard(),
+                    LedRgbCard(comodo: "quarto",),
                   ],
                 ),
                 SizedBox(height: 16),

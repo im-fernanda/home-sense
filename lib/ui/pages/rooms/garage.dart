@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:home_sense/ui/widgets/led_card.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+
+import '../../widgets/servo_card.dart';
 
 class Garage extends StatefulWidget {
   Garage({
@@ -91,172 +94,9 @@ class _GarageState extends State<Garage> {
                     SizedBox(height: height / 2 - 120),
                     Row(
                       children: [
-                        Expanded(
-                          child: Container(
-                            height: 180,
-                            padding: EdgeInsets.all(16),
-                            decoration: BoxDecoration(
-                              color: const Color.fromARGB(255, 247, 247, 247),
-                              borderRadius: BorderRadius.circular(33),
-                            ),
-                            child: Column(
-                              children: [
-                                Text("Portão"),
-                                SizedBox(height: 8),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      "Abrir",
-                                      style: TextStyle(
-                                          color: Colors.black,
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.w600),
-                                    ),
-                                    SizedBox(
-                                      height: 40,
-                                      width: 40,
-                                      child: Transform.scale(
-                                        scale: 0.8,
-                                        child: Switch(
-                                          value: gateIsOpen,
-                                          activeColor: Colors.amber,
-                                          onChanged: isSwicthToOpenGateEnabled
-                                              ? (bool value) {
-                                                  setState(() {
-                                                    gateIsOpen = value;
-                                                    isSwicthToOpenGateEnabled =
-                                                        false;
-                                                    isSwicthToCloseGateEnabled =
-                                                        true;
-                                                  });
-                                                }
-                                              : (_) {},
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(height: 16),
-                                Container(
-                                  height: 1,
-                                  width: double.infinity,
-                                  color: Colors.black12,
-                                ),
-                                SizedBox(height: 22),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      "Fechar",
-                                      style: TextStyle(
-                                          color: Colors.black,
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.w600),
-                                    ),
-                                    SizedBox(
-                                      height: 40,
-                                      width: 40,
-                                      child: Transform.scale(
-                                        scale: 0.8,
-                                        child: Switch(
-                                          value: !gateIsOpen,
-                                          activeColor: Colors.amber,
-                                          onChanged: isSwicthToCloseGateEnabled
-                                              ? (bool value) {
-                                                  setState(() {
-                                                    gateIsOpen = !value;
-                                                    isSwicthToCloseGateEnabled =
-                                                        false;
-                                                    isSwicthToOpenGateEnabled =
-                                                        true;
-                                                  });
-                                                }
-                                              : (_) {},
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
+                        ServoCard(),
                         SizedBox(width: 16),
-                        Expanded(
-                          child: Container(
-                            height: 180,
-                            padding: EdgeInsets.all(16),
-                            decoration: BoxDecoration(
-                              color: const Color.fromARGB(255, 247, 247, 247),
-                              borderRadius: BorderRadius.circular(33),
-                            ),
-                            child: Column(
-                              children: [
-                                Text("Luminosidade"),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      "32%",
-                                      style: TextStyle(
-                                          color: Colors.black,
-                                          fontSize: 26,
-                                          fontWeight: FontWeight.w600),
-                                    ),
-                                    SizedBox(
-                                      height: 40,
-                                      width: 40,
-                                      child: Icon(
-                                        Icons.lightbulb_outline,
-                                        size: 30,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(height: 24),
-                                Container(
-                                  height: 1,
-                                  width: double.infinity,
-                                  color: Colors.black12,
-                                ),
-                                SizedBox(height: 20),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      "Lâmpada",
-                                      style: TextStyle(
-                                          color: Colors.black,
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.w600),
-                                    ),
-                                    SizedBox(
-                                      height: 40,
-                                      width: 40,
-                                      child: Transform.scale(
-                                        scale: 0.8,
-                                        child: Switch(
-                                          value: light,
-                                          activeColor: Colors.amber,
-                                          onChanged: (bool value) {
-                                            setState(() {
-                                              light = value;
-                                            });
-                                          },
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
+                        LedCard(comodo: "garagem")
                       ],
                     ),
                   ],
@@ -269,3 +109,5 @@ class _GarageState extends State<Garage> {
     );
   }
 }
+
+

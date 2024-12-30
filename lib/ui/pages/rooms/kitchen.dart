@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:home_sense/ui/widgets/sensors_card.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+
+import '../../widgets/led_card.dart';
 
 class Kitchen extends StatefulWidget {
   Kitchen({
@@ -88,144 +91,9 @@ class _KitchenState extends State<Kitchen> {
                     SizedBox(height: height / 2 - 120),
                     Row(
                       children: [
-                        Expanded(
-                          child: Container(
-                            height: 180,
-                            padding: EdgeInsets.all(16),
-                            decoration: BoxDecoration(
-                              color: const Color.fromARGB(255, 247, 247, 247),
-                              borderRadius: BorderRadius.circular(33),
-                            ),
-                            child: Column(
-                              children: [
-                                Text("Temperatura"),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      "26° C",
-                                      style: TextStyle(
-                                          color: Colors.black,
-                                          fontSize: 26,
-                                          fontWeight: FontWeight.w600),
-                                    ),
-                                    SizedBox(
-                                      height: 40,
-                                      width: 40,
-                                      child: Icon(
-                                        MdiIcons.homeThermometerOutline,
-                                        size: 30,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(height: 12),
-                                Container(
-                                  height: 1,
-                                  width: double.infinity,
-                                  color: Colors.black12,
-                                ),
-                                SizedBox(height: 12),
-                                Text("Umidade"),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      "47%",
-                                      style: TextStyle(
-                                          color: Colors.black,
-                                          fontSize: 26,
-                                          fontWeight: FontWeight.w600),
-                                    ),
-                                    SizedBox(
-                                      height: 40,
-                                      width: 40,
-                                      child: Icon(
-                                        Icons.water_drop_outlined,
-                                        size: 30,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
+                        SensorsCard(comodo: "cozinha"),
                         SizedBox(width: 16),
-                        Expanded(
-                          child: Container(
-                            height: 180,
-                            padding: EdgeInsets.all(16),
-                            decoration: BoxDecoration(
-                              color: const Color.fromARGB(255, 247, 247, 247),
-                              borderRadius: BorderRadius.circular(33),
-                            ),
-                            child: Column(
-                              children: [
-                                Text("Luminosidade"),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      "32%",
-                                      style: TextStyle(
-                                          color: Colors.black,
-                                          fontSize: 26,
-                                          fontWeight: FontWeight.w600),
-                                    ),
-                                    SizedBox(
-                                      height: 40,
-                                      width: 40,
-                                      child: Icon(
-                                        Icons.lightbulb_outline,
-                                        size: 30,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(height: 12),
-                                Container(
-                                  height: 1,
-                                  width: double.infinity,
-                                  color: Colors.black12,
-                                ),
-                                SizedBox(height: 30),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      "Lâmpada",
-                                      style: TextStyle(
-                                          color: Colors.black,
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.w600),
-                                    ),
-                                    SizedBox(
-                                      height: 40,
-                                      width: 40,
-                                      child: Transform.scale(
-                                        scale: 0.8,
-                                        child: Switch(
-                                          value: light,
-                                          activeColor: Colors.amber,
-                                          onChanged: (bool value) {
-                                            setState(() {
-                                              light = value;
-                                            });
-                                          },
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
+                        LedCard(comodo: "cozinha"),
                       ],
                     ),
                   ],

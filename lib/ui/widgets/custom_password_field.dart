@@ -46,8 +46,8 @@ class _CustomPasswordFormFieldState extends State<CustomPasswordFormField> {
               });
             },
             child: obscured
-                ? const Icon(Icons.remove_red_eye_rounded)
-                : const Icon(Icons.remove_red_eye_outlined),
+                ? const Icon(Icons.remove_red_eye_rounded, color: Colors.amber)
+                : const Icon(Icons.remove_red_eye_outlined, color: Colors.amber)
           ),
           hintText: widget.hintText,
           hintStyle: const TextStyle(color: Colors.grey),

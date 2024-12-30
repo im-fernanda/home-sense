@@ -1,3 +1,4 @@
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 
 class AcController extends StatefulWidget {
@@ -8,11 +9,37 @@ class AcController extends StatefulWidget {
 }
 
 class _AcControllerState extends State<AcController> {
+
+  final DatabaseReference _db = FirebaseDatabase.instance.ref();
+
   Color color = Colors.lightBlueAccent;
-  double temperature = 22;
+  double temperature = 16;
   bool isSwitchedOn = false;
   bool autoAdjustment = false;
   int selectedMode = 0;
+  String mode = '';
+
+  void _getDbInfo() {
+    _db.child("comodos/quarto/atuadores/ar-condicionado/valor").onValue.listen((event) {
+      final data = event.snapshot.value as double;
+      setState(() {
+        temperature = data;
+      });
+    });
+
+    _db.child("comodos/quarto/atuadores/ar-condicionado/modo").onValue.listen((event) {
+      final data = event.snapshot.value as String;
+      setState(() {
+        mode = data;
+      });
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _getDbInfo();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +81,7 @@ class _AcControllerState extends State<AcController> {
                       Column(
                         children: [
                           Text(
-                            _getModeName(selectedMode),
+                            mode,
                             style: const TextStyle(
                               fontSize: 16,
                               color: Colors.grey,
@@ -80,7 +107,7 @@ class _AcControllerState extends State<AcController> {
                   const SizedBox(height: 48),
                   Slider(
                     value: temperature,
-                    min: 10,
+                    min: 16,
                     max: 30,
                     divisions: 20,
                     activeColor: color,
@@ -88,6 +115,7 @@ class _AcControllerState extends State<AcController> {
                     label: '${temperature.toInt()}°',
                     onChanged: (value) {
                       setState(() {
+                        _db.child("comodos/quarto/atuadores/ar-condicionado/valor").set(temperature.toInt);
                         temperature = value;
                       });
                     },
@@ -111,6 +139,7 @@ class _AcControllerState extends State<AcController> {
                 return GestureDetector(
                   onTap: () {
                     setState(() {
+                      _db.child("comodos/quarto/atuadores/ar-condicionado/modo").set(_getModeName(selectedMode));
                       selectedMode = index;
                     });
                   },

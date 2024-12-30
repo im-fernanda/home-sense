@@ -36,6 +36,9 @@ class _RegisterState extends State<Register> {
     try {
       await authService.signUpWithEmailAndPassword(
           emailController.value.text, passwordController.value.text);
+
+      Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => Home()));
     } on Exception catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -82,7 +85,7 @@ class _RegisterState extends State<Register> {
                     FadeInUp(
                       duration: const Duration(milliseconds: 1300),
                       child: const Text(
-                        "Criar nova conta",
+                        "Crie nova conta!",
                         style: TextStyle(color: Colors.white, fontSize: 18),
                       ),
                     ),
