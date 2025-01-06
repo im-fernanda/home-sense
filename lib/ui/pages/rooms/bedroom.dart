@@ -89,7 +89,7 @@ class _BedroomState extends State<Bedroom> {
                   children: [
                     SensorsCard(comodo: "quarto"),
                     SizedBox(width: 16),
-                    LedRgbCard(comodo: "quarto",),
+                    LedRgbCard(comodo: "quarto"),
                   ],
                 ),
                 SizedBox(height: 16),

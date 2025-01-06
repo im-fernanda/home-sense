@@ -19,18 +19,49 @@ class _AcControllerState extends State<AcController> {
   int selectedMode = 0;
   String mode = '';
 
-  void _getDbInfo() {
-    _db.child("comodos/quarto/atuadores/ar-condicionado/valor").onValue.listen((event) {
-      final data = event.snapshot.value as double;
+  void _getDbInfo() async {
+    final snapshot = await _db.child("comodos/quarto/atuadores/ar-condicionado/valor").get();
+    if (snapshot.exists) {
+      final data = snapshot.value as int;
       setState(() {
-        temperature = data;
+        temperature = data.toDouble();
+     });
+    }
+
+    _db.child("comodos/quarto/atuadores/ar-condicionado/valor").onValue.listen((event) {
+      final data = event.snapshot.value as int;
+      setState(() {
+        temperature = data.toDouble();
       });
     });
+
+    final snapshot2 = await _db.child("comodos/quarto/atuadores/ar-condicionado/modo").get();
+    if (snapshot2.exists) {
+      final data = snapshot2.value as String;
+      setState(() {
+        mode = data;
+     });
+    }
 
     _db.child("comodos/quarto/atuadores/ar-condicionado/modo").onValue.listen((event) {
       final data = event.snapshot.value as String;
       setState(() {
         mode = data;
+      });
+    });
+
+    final snapshot3 = await _db.child("comodos/quarto/atuadores/ar-condicionado/index").get();
+    if (snapshot3.exists) {
+      final data = snapshot3.value as int;
+      setState(() {
+        selectedMode = data;
+     });
+    }
+
+    _db.child("comodos/quarto/atuadores/ar-condicionado/index").onValue.listen((event) {
+      final data = event.snapshot.value as int;
+      setState(() {
+        selectedMode = data;
       });
     });
   }
@@ -115,8 +146,8 @@ class _AcControllerState extends State<AcController> {
                     label: '${temperature.toInt()}°',
                     onChanged: (value) {
                       setState(() {
-                        _db.child("comodos/quarto/atuadores/ar-condicionado/valor").set(temperature.toInt);
                         temperature = value;
+                        _db.child("comodos/quarto/atuadores/ar-condicionado/valor").set(temperature.toInt());
                       });
                     },
                   ),
@@ -139,8 +170,9 @@ class _AcControllerState extends State<AcController> {
                 return GestureDetector(
                   onTap: () {
                     setState(() {
-                      _db.child("comodos/quarto/atuadores/ar-condicionado/modo").set(_getModeName(selectedMode));
                       selectedMode = index;
+                       _db.child("comodos/quarto/atuadores/ar-condicionado/modo").set(_getModeName(selectedMode));
+                       _db.child("comodos/quarto/atuadores/ar-condicionado/index").set(selectedMode);
                     });
                   },
                   child: Container(
@@ -205,13 +237,13 @@ class _AcControllerState extends State<AcController> {
   IconData _getModeIcon(int index) {
     switch (index) {
       case 0:
-        return Icons.ac_unit; // Cool Mode
+        return Icons.ac_unit;
       case 1:
-        return Icons.air; // Dry Mode
+        return Icons.air;
       case 2:
-        return Icons.eco; // Eco Mode
+        return Icons.eco;
       case 3:
-        return Icons.bolt; // Turbo Mode
+        return Icons.bolt;
       default:
         return Icons.help;
     }
@@ -220,13 +252,13 @@ class _AcControllerState extends State<AcController> {
   String _getModeName(int index) {
     switch (index) {
       case 0:
-        return "COOL MODE"; // Cool Mode
+        return "COOL MODE";
       case 1:
-        return "DRY MODE"; // Dry Mode
+        return "DRY MODE";
       case 2:
-        return "ECO MODE"; // Eco Mode
+        return "ECO MODE";
       case 3:
-        return "TURBO MODE"; // Turbo Mode
+        return "TURBO MODE";
       default:
         return "ERROR";
     }
