@@ -36,7 +36,7 @@ class _HomeState extends State<Home> {
     "externo_img.jpg"
   ];
 
-  List routineList = ["Chegada", "Saída"];
+  List routineList = ["Chegada", "Saida"];
 
   @override
   Widget build(BuildContext context) {

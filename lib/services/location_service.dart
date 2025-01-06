@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:geolocator/geolocator.dart';
 
 class LocationService {
@@ -11,6 +12,8 @@ class LocationService {
   final double targetLatitude = -23.550520; // Latitude predefinida
   final double targetLongitude = -46.633308; // Longitude predefinida
   bool isNearTarget = false;
+
+  final DatabaseReference _db = FirebaseDatabase.instance.ref();
 
   Timer? _timer;
 
@@ -58,9 +61,13 @@ class LocationService {
       if (distance <= 20) {
         isNearTarget = true;
         stopLocationUpdates();
+        _db.child("rotinas/chegada/on").set(true);
+        _db.child("rotinas/saida/on").set(false);
       } else {
         if(isNearTarget) {
           startLocationUpdates();
+          _db.child("rotinas/chegada/on").set(false);
+          _db.child("rotinas/saida/on").set(true);
         }
         isNearTarget = false;
       }
