@@ -45,20 +45,19 @@ flutter:
     - assets/images/saida_img.jpg
     - assets/images/avatar.png
     - assets/icon.png
-    - assets/banner.png
+    - assets/bannerteste.png
 
 flutter_native_splash:
   color: "#ffffff"
-  image: assets/banner.png
+  image: assets/bannerteste.png
 
   # Configuração específica para Android 12+
   android_12:
-    image: assets/banner.png
+    image: assets/bannerteste.png
     color: "#ffffff"
 
   # Configuração para Android
   android: true
-  android_gravity: fill
 
 
 flutter_launcher_icons:
