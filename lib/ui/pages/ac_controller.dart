@@ -2,7 +2,14 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 
 class AcController extends StatefulWidget {
-  const AcController({super.key});
+  AcController({
+    super.key,
+    required this.isRoutine,
+    required this.routine
+    });
+
+  bool isRoutine;
+  String routine;
 
   @override
   State<AcController> createState() => _AcControllerState();
@@ -66,10 +73,61 @@ class _AcControllerState extends State<AcController> {
     });
   }
 
+  void _getRoutineDbInfo() async {
+    final snapshot = await _db.child("rotinas/${widget.routine.toLowerCase()}/quarto/ar-condicionado/valor").get();
+    if (snapshot.exists) {
+      final data = snapshot.value as int;
+      setState(() {
+        temperature = data.toDouble();
+     });
+    }
+
+    _db.child("rotinas/${widget.routine.toLowerCase()}/quarto/ar-condicionado/valor").onValue.listen((event) {
+      final data = event.snapshot.value as int;
+      setState(() {
+        temperature = data.toDouble();
+      });
+    });
+
+    final snapshot2 = await _db.child("rotinas/${widget.routine.toLowerCase()}/quarto/ar-condicionado/modo").get();
+    if (snapshot2.exists) {
+      final data = snapshot2.value as String;
+      setState(() {
+        mode = data;
+     });
+    }
+
+    _db.child("rotinas/${widget.routine.toLowerCase()}/quarto/ar-condicionado/modo").onValue.listen((event) {
+      final data = event.snapshot.value as String;
+      setState(() {
+        mode = data;
+      });
+    });
+
+    final snapshot3 = await _db.child("rotinas/${widget.routine.toLowerCase()}/quarto/ar-condicionado/index").get();
+    if (snapshot3.exists) {
+      final data = snapshot3.value as int;
+      setState(() {
+        selectedMode = data;
+     });
+    }
+
+    _db.child("rotinas/${widget.routine.toLowerCase()}/quarto/ar-condicionado/index").onValue.listen((event) {
+      final data = event.snapshot.value as int;
+      setState(() {
+        selectedMode = data;
+      });
+    });
+  }
+
   @override
   void initState() {
     super.initState();
-    _getDbInfo();
+    if(widget.isRoutine) {
+      _getRoutineDbInfo();
+    } else {
+      _getDbInfo();
+    }
   }
 
   @override
@@ -147,7 +205,11 @@ class _AcControllerState extends State<AcController> {
                     onChanged: (value) {
                       setState(() {
                         temperature = value;
-                        _db.child("comodos/quarto/atuadores/ar-condicionado/valor").set(temperature.toInt());
+                        if(widget.isRoutine) {
+                          _db.child("rotinas/${widget.routine.toLowerCase()}/quarto/ar-condicionado/valor").set(temperature.toInt());
+                        } else {
+                          _db.child("comodos/quarto/atuadores/ar-condicionado/valor").set(temperature.toInt());
+                        }
                       });
                     },
                   ),
@@ -171,8 +233,13 @@ class _AcControllerState extends State<AcController> {
                   onTap: () {
                     setState(() {
                       selectedMode = index;
-                       _db.child("comodos/quarto/atuadores/ar-condicionado/modo").set(_getModeName(selectedMode));
-                       _db.child("comodos/quarto/atuadores/ar-condicionado/index").set(selectedMode);
+                       if(widget.isRoutine) {
+                          _db.child("rotinas/${widget.routine.toLowerCase()}/quarto/ar-condicionado/modo").set(_getModeName(selectedMode));
+                          _db.child("rotinas/${widget.routine.toLowerCase()}/quarto/ar-condicionado/index").set(selectedMode);
+                        } else {
+                          _db.child("comodos/quarto/atuadores/ar-condicionado/modo").set(_getModeName(selectedMode));
+                          _db.child("comodos/quarto/atuadores/ar-condicionado/index").set(selectedMode);
+                        }
                     });
                   },
                   child: Container(

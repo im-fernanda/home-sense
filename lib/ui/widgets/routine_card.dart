@@ -25,7 +25,7 @@ class RoutineCard extends StatelessWidget {
     switch (routineTitle) {
       case "Chegada":
         return "chegada_img.jpg";
-      case "Saída":
+      case "Saida":
         return "saida_img.jpg";
       default:
         return null;
@@ -37,7 +37,7 @@ class RoutineCard extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => Routine(rotina: routineTitle)));
+            context, MaterialPageRoute(builder: (context) => Routine(routine: routineTitle)));
       },
       child: Padding(
         padding: const EdgeInsets.all(4),

@@ -16,7 +16,6 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   final PageController _pageController = PageController(initialPage: 0);
 
-  String username = User.username;
 
   List roomList = [
     "Sala de Estar",
@@ -51,20 +50,12 @@ class _HomeState extends State<Home> {
                 children: [
                   Expanded(
                     child: Text(
-                      "Hello, ${username}",
+                      "Olá, ${User.currentUserName}",
                       style: const TextStyle(
                           color: Colors.black,
                           fontSize: 22,
                           fontWeight: FontWeight.w600),
                     ),
-                  ),
-                  const Icon(
-                    Icons.notifications_outlined,
-                    color: Colors.black,
-                    size: 30,
-                  ),
-                  const SizedBox(
-                    width: 16,
                   ),
                   InkWell(
                       onTap: () {

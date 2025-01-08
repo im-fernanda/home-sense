@@ -1,5 +1,6 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
+import 'package:home_sense/domain/user.dart';
 import 'package:home_sense/ui/pages/home.dart';
 import 'package:home_sense/ui/pages/login.dart';
 import 'package:home_sense/ui/widgets/custom_password_field.dart';
@@ -36,6 +37,8 @@ class _RegisterState extends State<Register> {
     try {
       await authService.signUpWithEmailAndPassword(
           emailController.value.text, passwordController.value.text);
+
+      User.addUser(emailController.value.text, usernameController.value.text);
 
       Navigator.pushReplacement(
             context, MaterialPageRoute(builder: (context) => Home()));

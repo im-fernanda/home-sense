@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:home_sense/ui/widgets/led_rgb_card.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
+import '../../widgets/led_card.dart';
 import '../../widgets/move_detector_card.dart';
 
 class LivingRoom extends StatefulWidget {
@@ -155,7 +156,7 @@ class _LivingRoomState extends State<LivingRoom> {
                           ),
                         ),
                         SizedBox(width: 16),
-                        LedRgbCard(comodo: "sala",),
+                        LedCard(comodo: "sala",),
                       ],
                     ),
                     SizedBox(height: 16),

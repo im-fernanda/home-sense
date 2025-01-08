@@ -14,9 +14,6 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
-  String username = User.username;
-  String email = User.email;
-
   final usernameController = TextEditingController();
   final emailController = TextEditingController();
 
@@ -106,14 +103,14 @@ class _ProfileState extends State<Profile> {
                 Image.asset(
                     height: 150, width: 150, "assets/images/avatar.png"),
                 Text(
-                  username,
+                  "${User.currentUserName}",
                   style: const TextStyle(
                     color: Colors.black,
                     fontSize: 20,
                   ),
                 ),
                 Text(
-                  email,
+                  "${User.currentUserEmail}",
                   style: const TextStyle(
                     color: Colors.grey,
                     fontSize: 16,

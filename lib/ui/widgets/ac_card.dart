@@ -87,7 +87,7 @@ class _AcCardState extends State<AcCard> {
     return GestureDetector(
       onLongPress: () {
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => AcController()));
+            context, MaterialPageRoute(builder: (context) => AcController(isRoutine: false, routine: '')));
       },
       child: Container(
         height: 150,

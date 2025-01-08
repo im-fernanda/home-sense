@@ -27,10 +27,10 @@ class _LoginState extends State<Login> {
     final authService = Provider.of<AuthService>(context, listen: false);
 
     try {
-      User.username = usernameController.value.text;
-      User.email = emailController.value.text;
       await authService.signInWithEmailAndPassword(
           emailController.value.text, passwordController.value.text);
+
+      User.getUserByEmail(emailController.value.text);
 
       Navigator.pushReplacement(
             context, MaterialPageRoute(builder: (context) => Home()));
@@ -131,11 +131,6 @@ class _LoginState extends State<Login> {
                           ),
                           child: Column(
                             children: [
-                              CustomTextField(
-                                hintText: "Username",
-                                obscure: false,
-                                controller: usernameController,
-                              ),
                               CustomTextField(
                                 hintText: "Email",
                                 obscure: false,

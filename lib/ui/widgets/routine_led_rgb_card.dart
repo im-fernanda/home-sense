@@ -109,6 +109,29 @@ class _RoutineLedRgbCardState extends State<RoutineLedRgbCard> {
     ),
   );
 
+  void _getDbInfo() async {
+    final snapshot = await _db.child("rotinas/${widget.routineTitle.toLowerCase()}/quarto/lampada-rgb/on").get();
+    if (snapshot.exists) {
+      final data = snapshot.value as bool;
+      setState(() {
+        light = data;
+     });
+    }
+
+    _db.child("rotinas/${widget.routineTitle.toLowerCase()}/quarto/lampada-rgb/on").onValue.listen((event) {
+      final data = event.snapshot.value as bool;
+      setState(() {
+        light = data;
+      });
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _getDbInfo();
+ }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(

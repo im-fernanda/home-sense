@@ -36,6 +36,7 @@ class NotificationService {
 
       if(data) {
         sendNotification("Movimento Detectado", "Algum movimento foi detectado em sua sala de estar!");
+        print("chamou notficação");
       }
     });
   }
