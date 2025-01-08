@@ -6,10 +6,7 @@ import 'package:provider/provider.dart';
 import '../../services/database_service.dart';
 
 class LedRgbCard extends StatefulWidget {
-  LedRgbCard({
-    super.key,
-    required this.comodo
-  });
+  LedRgbCard({super.key, required this.comodo});
 
   String comodo;
 
@@ -18,7 +15,6 @@ class LedRgbCard extends StatefulWidget {
 }
 
 class _LedRgbCardState extends State<LedRgbCard> {
-
   final DatabaseReference _db = FirebaseDatabase.instance.ref();
 
   Color color = Colors.amber;
@@ -26,37 +22,57 @@ class _LedRgbCardState extends State<LedRgbCard> {
   int brightness = 0;
 
   void _changeDbColor(Color color) {
-    switch(color) {
+    switch (color) {
       case Colors.red:
-        _db.child("comodos/${widget.comodo}/atuadores/lampada-rgb/cor").set("Vermelho");
-      break;
+        _db
+            .child("comodos/${widget.comodo}/atuadores/lampada-rgb/cor")
+            .set("Vermelho");
+        break;
       case Colors.green:
-        _db.child("comodos/${widget.comodo}/atuadores/lampada-rgb/cor").set("Verde");
-      break;
+        _db
+            .child("comodos/${widget.comodo}/atuadores/lampada-rgb/cor")
+            .set("Verde");
+        break;
       case Colors.blue:
-        _db.child("comodos/${widget.comodo}/atuadores/lampada-rgb/cor").set("Azul");
-      break;
+        _db
+            .child("comodos/${widget.comodo}/atuadores/lampada-rgb/cor")
+            .set("Azul");
+        break;
       case Colors.orange:
-        _db.child("comodos/${widget.comodo}/atuadores/lampada-rgb/cor").set("Laranja");
-      break;
+        _db
+            .child("comodos/${widget.comodo}/atuadores/lampada-rgb/cor")
+            .set("Laranja");
+        break;
       case Colors.lightGreenAccent:
-        _db.child("comodos/${widget.comodo}/atuadores/lampada-rgb/cor").set("Verde Claro");
-      break;
+        _db
+            .child("comodos/${widget.comodo}/atuadores/lampada-rgb/cor")
+            .set("Verde Claro");
+        break;
       case Colors.lightBlueAccent:
-        _db.child("comodos/${widget.comodo}/atuadores/lampada-rgb/cor").set("Azul Claro");
-      break;
+        _db
+            .child("comodos/${widget.comodo}/atuadores/lampada-rgb/cor")
+            .set("Azul Claro");
+        break;
       case Colors.yellow:
-        _db.child("comodos/${widget.comodo}/atuadores/lampada-rgb/cor").set("Amarelo");
-      break;
+        _db
+            .child("comodos/${widget.comodo}/atuadores/lampada-rgb/cor")
+            .set("Amarelo");
+        break;
       case Colors.cyanAccent:
-        _db.child("comodos/${widget.comodo}/atuadores/lampada-rgb/cor").set("Ciano");
-      break;
+        _db
+            .child("comodos/${widget.comodo}/atuadores/lampada-rgb/cor")
+            .set("Ciano");
+        break;
       case Colors.purple:
-        _db.child("comodos/${widget.comodo}/atuadores/lampada-rgb/cor").set("Roxo");
-      break;
+        _db
+            .child("comodos/${widget.comodo}/atuadores/lampada-rgb/cor")
+            .set("Roxo");
+        break;
       default:
-        _db.child("comodos/${widget.comodo}/atuadores/lampada-rgb/cor").set("Branco");
-      break;
+        _db
+            .child("comodos/${widget.comodo}/atuadores/lampada-rgb/cor")
+            .set("Branco");
+        break;
     }
 
     setState(() {
@@ -65,73 +81,82 @@ class _LedRgbCardState extends State<LedRgbCard> {
   }
 
   Widget _buildColorPicker() => BlockPicker(
-    pickerColor: color,
-    availableColors: [
-      Colors.red,
-      Colors.green,
-      Colors.blue,
-      Colors.white,
-      Colors.orange,
-      Colors.lightGreenAccent,
-      Colors.lightBlueAccent,
-      Colors.white,
-      Colors.yellow,
-      Colors.cyanAccent,
-      Colors.purple,
-      Colors.white
-    ],
-    onColorChanged: (color) => setState(() => _changeDbColor(color) ),
-  );  
+        pickerColor: color,
+        availableColors: [
+          Colors.red,
+          Colors.green,
+          Colors.blue,
+          Colors.white,
+          Colors.orange,
+          Colors.lightGreenAccent,
+          Colors.lightBlueAccent,
+          Colors.white,
+          Colors.yellow,
+          Colors.cyanAccent,
+          Colors.purple,
+          Colors.white
+        ],
+        onColorChanged: (color) => setState(() => _changeDbColor(color)),
+      );
 
   void _pickColor(BuildContext context) => showDialog(
-    context: context,
-    builder: (context) => AlertDialog(
-      title: Text("Pick your light color"),
-      content: SingleChildScrollView(
-        physics: NeverScrollableScrollPhysics(),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            SizedBox(
-              height: 220,
-              child: _buildColorPicker(),
-            ),
-            SizedBox(height: 16),
-            TextButton(
-              child: Text(
-                "Select",
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 20,
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text("Escolha a cor"),
+          content: SingleChildScrollView(
+            physics: NeverScrollableScrollPhysics(),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                SizedBox(
+                  height: 220,
+                  child: _buildColorPicker(),
                 ),
-              ),
-            onPressed: () => Navigator.of(context).pop(),
+                SizedBox(height: 16),
+                TextButton(
+                  child: Text(
+                    "Select",
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 20,
+                    ),
+                  ),
+                  onPressed: () => Navigator.of(context).pop(),
+                ),
+              ],
             ),
-          ],
+          ),
         ),
-      ),
-    ),
-  );
+      );
 
   void _getDbInfo() {
-    _db.child("comodos/${widget.comodo}/atuadores/lampada-rgb/on").onValue.listen((event) {
+    _db
+        .child("comodos/${widget.comodo}/atuadores/lampada-rgb/on")
+        .onValue
+        .listen((event) {
       final data = event.snapshot.value as bool;
       setState(() {
         light = data;
       });
     });
 
-    _db.child("comodos/${widget.comodo}/sensores/luminosidade").onValue.listen((event) {
+    _db
+        .child("comodos/${widget.comodo}/sensores/luminosidade")
+        .onValue
+        .listen((event) {
       final data = event.snapshot.value as int;
       setState(() {
         brightness = data;
       });
     });
 
-    _db.child("comodos/${widget.comodo}/atuadores/lampada-rgb/cor").onValue.listen((event) {
+    _db
+        .child("comodos/${widget.comodo}/atuadores/lampada-rgb/cor")
+        .onValue
+        .listen((event) {
       final data = event.snapshot.value as String;
       setState(() {
-        switch(data) {
+        switch (data) {
           case "Vermelho":
             color = Colors.red;
             break;
@@ -236,7 +261,10 @@ class _LedRgbCardState extends State<LedRgbCard> {
                         activeColor: color,
                         onChanged: (bool value) {
                           setState(() {
-                            _db.child("comodos/${widget.comodo}/atuadores/lampada-rgb/on").set(value);
+                            _db
+                                .child(
+                                    "comodos/${widget.comodo}/atuadores/lampada-rgb/on")
+                                .set(value);
                             _db.child("rotinas/chegada/on").set(false);
                             _db.child("rotinas/saida/on").set(false);
                             light = value;
