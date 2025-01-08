@@ -13,7 +13,6 @@ import 'core/di/configure_providers.dart';
 import 'firebase_options.dart';
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  // Manipula notificações recebidas em segundo plano
   print('Background Message: ${message.notification?.title}');
 }
 Future<void> main() async {
@@ -32,7 +31,7 @@ Future<void> main() async {
   final data = await ConfigureProviders.createDependencyTree();
 
   final locationService = LocationService();
-  // locationService.startLocationUpdates();
+  locationService.startLocationUpdates();
 
   runApp(MyApp(data: data));
 }

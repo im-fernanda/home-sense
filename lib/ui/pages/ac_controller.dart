@@ -1,5 +1,8 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../../services/database_service.dart';
 
 class AcController extends StatefulWidget {
   AcController({
@@ -209,6 +212,8 @@ class _AcControllerState extends State<AcController> {
                           _db.child("rotinas/${widget.routine.toLowerCase()}/quarto/ar-condicionado/valor").set(temperature.toInt());
                         } else {
                           _db.child("comodos/quarto/atuadores/ar-condicionado/valor").set(temperature.toInt());
+                          _db.child("rotinas/chegada/on").set(false);
+                          _db.child("rotinas/saida/on").set(false);
                         }
                       });
                     },
@@ -239,6 +244,8 @@ class _AcControllerState extends State<AcController> {
                         } else {
                           _db.child("comodos/quarto/atuadores/ar-condicionado/modo").set(_getModeName(selectedMode));
                           _db.child("comodos/quarto/atuadores/ar-condicionado/index").set(selectedMode);
+                          _db.child("rotinas/chegada/on").set(false);
+                          _db.child("rotinas/saida/on").set(false);
                         }
                     });
                   },

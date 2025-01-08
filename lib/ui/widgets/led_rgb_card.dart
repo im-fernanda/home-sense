@@ -1,6 +1,9 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
+import 'package:provider/provider.dart';
+
+import '../../services/database_service.dart';
 
 class LedRgbCard extends StatefulWidget {
   LedRgbCard({
@@ -234,6 +237,8 @@ class _LedRgbCardState extends State<LedRgbCard> {
                         onChanged: (bool value) {
                           setState(() {
                             _db.child("comodos/${widget.comodo}/atuadores/lampada-rgb/on").set(value);
+                            _db.child("rotinas/chegada/on").set(false);
+                            _db.child("rotinas/saida/on").set(false);
                             light = value;
                           });
                         },

@@ -1,6 +1,8 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import '../../services/database_service.dart';
 import '../pages/ac_controller.dart';
 
 class AcCard extends StatefulWidget {
@@ -146,6 +148,8 @@ class _AcCardState extends State<AcCard> {
                         onChanged: (bool value) {
                           setState(() {
                             _db.child("comodos/quarto/atuadores/ar-condicionado/on").set(value);
+                            _db.child("rotinas/chegada/on").set(false);
+                            _db.child("rotinas/saida/on").set(false);
                             ac = value;
                           });
                         },

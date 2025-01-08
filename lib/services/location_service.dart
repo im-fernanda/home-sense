@@ -9,48 +9,38 @@ class LocationService {
 
   LocationService._internal();
 
-  final double targetLatitude = -23.550520; // Latitude predefinida
-  final double targetLongitude = -46.633308; // Longitude predefinida
+  final double targetLatitude = -5.7740729;
+  final double targetLongitude = -35.2764059;
   bool isNearTarget = false;
 
   final DatabaseReference _db = FirebaseDatabase.instance.ref();
+  StreamSubscription<Position>? _positionSubscription;
 
-  Timer? _timer;
-
-  void startLocationUpdates() {
-    _startLocationUpdates();
-    _timer = Timer.periodic(Duration(seconds: 10), (timer) {
-      _startLocationUpdates();
-    });
-  }
-
-  Future<void> _startLocationUpdates() async {
-    bool serviceEnabled;
-    LocationPermission permission;
-
-    serviceEnabled = await Geolocator.isLocationServiceEnabled();
-    if (!serviceEnabled) {
+  Future<void> startLocationUpdates() async {
+    if (!(await Geolocator.isLocationServiceEnabled())) {
+      print("Serviço de localização desativado.");
       return;
     }
 
-    permission = await Geolocator.checkPermission();
+    LocationPermission permission = await Geolocator.checkPermission();
     if (permission == LocationPermission.denied) {
       permission = await Geolocator.requestPermission();
       if (permission == LocationPermission.denied) {
+        print("Permissão de localização negada.");
         return;
       }
     }
-
     if (permission == LocationPermission.deniedForever) {
+      print("Permissão de localização permanentemente negada.");
       return;
     }
 
-    Geolocator.getPositionStream(
+    _positionSubscription = Geolocator.getPositionStream(
       locationSettings: const LocationSettings(
         accuracy: LocationAccuracy.high,
-        distanceFilter: 1,
+        distanceFilter: 5, // Ajuste conforme necessário
       ),
-    ).listen((Position position) {
+    ).listen((Position position) async {
       double distance = Geolocator.distanceBetween(
         position.latitude,
         position.longitude,
@@ -58,23 +48,29 @@ class LocationService {
         targetLongitude,
       );
 
-      if (distance <= 20) {
+      if (distance <= 15) {
         isNearTarget = true;
-        stopLocationUpdates();
-        _db.child("rotinas/chegada/on").set(true);
-        _db.child("rotinas/saida/on").set(false);
-      } else {
-        if(isNearTarget) {
-          startLocationUpdates();
-          _db.child("rotinas/chegada/on").set(false);
-          _db.child("rotinas/saida/on").set(true);
-        }
+        print("TTTTTTAAAAAAA PPPPPEEEEEERRRRRTTTTTTOOOOOO");
+        await _updateState(true);
+      } else if (distance > 5) {
+        print("TTTTTTAAAAAAA LLLLLLOOOOONNNNNGGGGGGEEEEEE");
         isNearTarget = false;
+        await _updateState(false);
       }
     });
   }
 
+  Future<void> _updateState(bool nearTarget) async {
+    if (nearTarget) {
+      await _db.child("rotinas/chegada/on").set(true);
+      await _db.child("rotinas/saida/on").set(false);
+    } else {
+      await _db.child("rotinas/chegada/on").set(false);
+      await _db.child("rotinas/saida/on").set(true);
+    }
+  }
+
   void stopLocationUpdates() {
-    _timer?.cancel();
+    _positionSubscription?.cancel();
   }
 }

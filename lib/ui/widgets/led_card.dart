@@ -1,5 +1,8 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../../services/database_service.dart';
 
 class LedCard extends StatefulWidget {
   LedCard({
@@ -105,7 +108,9 @@ class _LedCardState extends State<LedCard> {
                       onChanged: (bool value) {
                         setState(() {
                           _db.child("comodos/${widget.comodo}/atuadores/lampada/on").set(value);
-                            light = value;
+                          _db.child("rotinas/chegada/on").set(false);
+                          _db.child("rotinas/saida/on").set(false);
+                          light = value;
                         });
                       },
                     ),

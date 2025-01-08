@@ -1,5 +1,8 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../../services/database_service.dart';
 
 class ServoCard extends StatefulWidget {
   const ServoCard({
@@ -15,23 +18,41 @@ class _ServoCardState extends State<ServoCard> {
 
   final DatabaseReference _db = FirebaseDatabase.instance.ref();
 
-  bool isGateOpen = false;
-  bool isSwicthToOpenGateEnabled = true;
-  bool isSwicthToCloseGateEnabled = false;
-  String lastFunction = "Fechou";
+  bool openGate = false;
+  bool closeGate = false;
+  bool isSwitchToOpenEnabled = false;
+  bool isSwitchToCloseEnabled = false;
 
   void _getDbInfo() {
-    _db.child("comodos/garagem/atuadores/servo/on").onValue.listen((event) {
+    _db.child("comodos/garagem/atuadores/servo/abrir").onValue.listen((event) {
       final data = event.snapshot.value as bool;
-      setState(() {
-        isGateOpen = data;
-      });
+      if(data) {
+        setState(() {
+          openGate = data;
+          closeGate = !data;
+          isSwitchToOpenEnabled = false;
+          isSwitchToCloseEnabled = true;
+        });
+      }
+    });
+
+    _db.child("comodos/garagem/atuadores/servo/fechar").onValue.listen((event) {
+      final data = event.snapshot.value as bool;
+      if(data) {
+        setState(() {
+          openGate = !data;
+          closeGate = data;
+          isSwitchToOpenEnabled = true;
+          isSwitchToCloseEnabled = false;
+        });
+      }
     });
   }
 
   @override
   void initState() {
     super.initState();
+    _getDbInfo();
   }
 
   @override
@@ -65,17 +86,19 @@ class _ServoCardState extends State<ServoCard> {
                   child: Transform.scale(
                     scale: 0.8,
                     child: Switch(
-                      value: isGateOpen,
+                      value: openGate,
                       activeColor: Colors.amber,
-                      onChanged: isSwicthToOpenGateEnabled
-                          ? (bool value) {
-                            isGateOpen = value;
-                            _db.child("comodos/garagem/atuadores/servo/on").set(value);
-                            isSwicthToOpenGateEnabled = false;
-                            isSwicthToCloseGateEnabled = true;
-                            _db.child("comodos/garagem/atuadores/servo/ultimaFuncao").set("Abriu");
-                            }
-                          : (_) {},
+                      onChanged: isSwitchToOpenEnabled ? (bool value) {
+                        setState(() {
+                          openGate = value;
+                          isSwitchToOpenEnabled = false;
+                          isSwitchToCloseEnabled = true;
+                        });
+                        _db.child("comodos/garagem/atuadores/servo/abrir").set(value);
+                        _db.child("comodos/garagem/atuadores/servo/fechar").set(!value);
+                        _db.child("rotinas/chegada/on").set(false);
+                        _db.child("rotinas/saida/on").set(false);
+                      } : (_) {}
                     ),
                   ),
                 ),
@@ -105,17 +128,19 @@ class _ServoCardState extends State<ServoCard> {
                   child: Transform.scale(
                     scale: 0.8,
                     child: Switch(
-                      value: isGateOpen,
+                      value: closeGate,
                       activeColor: Colors.amber,
-                      onChanged: isSwicthToCloseGateEnabled
-                          ? (bool value) {
-                            isGateOpen = !value;
-                            _db.child("comodos/garagem/atuadores/servo/on").set(!value);
-                            isSwicthToOpenGateEnabled = true;
-                            isSwicthToCloseGateEnabled = false;
-                            _db.child("comodos/garagem/atuadores/servo/ultimaFuncao").set("Fechou");
-                            }
-                          : (_) {},
+                      onChanged: isSwitchToCloseEnabled ? (bool value) {
+                        setState(() {
+                          closeGate = value;
+                          isSwitchToOpenEnabled = true;
+                          isSwitchToCloseEnabled = false;
+                        });
+                        _db.child("comodos/garagem/atuadores/servo/fechar").set(value);
+                        _db.child("comodos/garagem/atuadores/servo/abrir").set(!value);
+                        _db.child("rotinas/chegada/on").set(false);
+                        _db.child("rotinas/saida/on").set(false);
+                      } : (_) {}
                     ),
                   ),
                 ),

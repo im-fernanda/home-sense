@@ -16,7 +16,6 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   final PageController _pageController = PageController(initialPage: 0);
 
-
   List roomList = [
     "Sala de Estar",
     "Quarto",
