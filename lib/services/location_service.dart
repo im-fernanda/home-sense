@@ -52,7 +52,7 @@ class LocationService {
         isNearTarget = true;
         print("TTTTTTAAAAAAA PPPPPEEEEEERRRRRTTTTTTOOOOOO");
         await _updateState(true);
-      } else if (distance > 5) {
+      } else if (distance > 15) {
         print("TTTTTTAAAAAAA LLLLLLOOOOONNNNNGGGGGGEEEEEE");
         isNearTarget = false;
         await _updateState(false);
