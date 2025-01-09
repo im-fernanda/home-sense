@@ -20,8 +20,8 @@ class NotificationService {
 
     // Criação do canal de notificações
     const AndroidNotificationChannel channel = AndroidNotificationChannel(
-      'movimento_channel', // ID do canal
-      'Movimento', // Nome do canal
+      'notification_channel', // ID do canal
+      'Notifications', // Nome do canal
       description:
           'Notificações sobre movimento detectado', // Descrição do canal
       importance: Importance.high,
@@ -43,13 +43,23 @@ class NotificationService {
         print("chamou notificação");
       }
     });
+
+    _db.child("comodos/cozinha/sensores/temperatura").onValue.listen((event) {
+      final data = event.snapshot.value as int;
+
+      if (data >= 35) {
+        sendNotification("Alta Temperatura",
+            "Uma temperatura muito alta foi detectada em sua cozinha!");
+        print("chamou notificação");
+      }
+    });
   }
 
   void sendNotification(String title, String body) async {
     const AndroidNotificationDetails androidDetails =
         AndroidNotificationDetails(
-      'movimento_channel',
-      'Movimento',
+      'notification_channel',
+      'Notifications',
       importance: Importance.high,
       priority: Priority.high,
     );

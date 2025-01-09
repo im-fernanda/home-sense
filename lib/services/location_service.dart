@@ -12,6 +12,7 @@ class LocationService {
   final double targetLatitude = -5.885995;
   final double targetLongitude = -35.363265;
   bool isNearTarget = false;
+  bool locAnterior = false;
 
   final DatabaseReference _db = FirebaseDatabase.instance.ref();
   StreamSubscription<Position>? _positionSubscription;
@@ -50,10 +51,13 @@ class LocationService {
 
       if (distance <= 15) {
         isNearTarget = true;
+        locAnterior = true;
         print("TTTTTTAAAAAAA PPPPPEEEEEERRRRRTTTTTTOOOOOO");
         await _updateState(true);
       } else if (distance > 15) {
         print("TTTTTTAAAAAAA LLLLLLOOOOONNNNNGGGGGGEEEEEE");
+        locAnterior = false;
+
         isNearTarget = false;
         await _updateState(false);
       }
@@ -62,11 +66,15 @@ class LocationService {
 
   Future<void> _updateState(bool nearTarget) async {
     if (nearTarget) {
-      await _db.child("rotinas/chegada/on").set(true);
-      await _db.child("rotinas/saida/on").set(false);
+      if (!locAnterior) {
+        await _db.child("rotinas/chegada/on").set(true);
+        await _db.child("rotinas/saida/on").set(false);
+      }
     } else {
-      await _db.child("rotinas/chegada/on").set(false);
-      await _db.child("rotinas/saida/on").set(true);
+      if (locAnterior) {
+        await _db.child("rotinas/chegada/on").set(false);
+        await _db.child("rotinas/saida/on").set(true);
+      }
     }
   }
 
