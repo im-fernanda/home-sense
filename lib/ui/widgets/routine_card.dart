@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../pages/routine.dart';
 
 class RoutineCard extends StatelessWidget {
@@ -9,17 +8,6 @@ class RoutineCard extends StatelessWidget {
   });
 
   final String routineTitle;
-
-  IconData _getIcon(String routineTitle) {
-    switch (routineTitle) {
-      case "Chegada":
-        return Icons.meeting_room_outlined;
-      case "Saída":
-        return Icons.door_back_door_outlined;
-      default:
-        return Icons.error_outline;
-    }
-  }
 
   String? _getImage(String routineTitle) {
     switch (routineTitle) {
@@ -37,7 +25,9 @@ class RoutineCard extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => Routine(routine: routineTitle)));
+            context,
+            MaterialPageRoute(
+                builder: (context) => Routine(routine: routineTitle)));
       },
       child: Padding(
         padding: const EdgeInsets.all(4),

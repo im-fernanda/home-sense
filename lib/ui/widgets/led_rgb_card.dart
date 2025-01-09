@@ -115,7 +115,7 @@ class _LedRgbCardState extends State<LedRgbCard> {
                 SizedBox(height: 16),
                 TextButton(
                   child: Text(
-                    "Select",
+                    "Confirmar",
                     style: TextStyle(
                       color: Colors.black,
                       fontSize: 20,

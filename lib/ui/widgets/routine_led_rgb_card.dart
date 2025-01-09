@@ -3,10 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 
 class RoutineLedRgbCard extends StatefulWidget {
-  RoutineLedRgbCard({
-    super.key,
-    required this.routineTitle
-  });
+  RoutineLedRgbCard({super.key, required this.routineTitle});
 
   String routineTitle;
 
@@ -15,44 +12,73 @@ class RoutineLedRgbCard extends StatefulWidget {
 }
 
 class _RoutineLedRgbCardState extends State<RoutineLedRgbCard> {
-
   final DatabaseReference _db = FirebaseDatabase.instance.ref();
 
   bool light = false;
   Color color = Colors.amber;
 
   void _changeDbColor(Color color) {
-    switch(color) {
+    switch (color) {
       case Colors.red:
-        _db.child("rotinas/${widget.routineTitle.toLowerCase()}/quarto/lampada-rgb/cor").set("Vermelho");
-      break;
+        _db
+            .child(
+                "rotinas/${widget.routineTitle.toLowerCase()}/quarto/lampada-rgb/cor")
+            .set("Vermelho");
+        break;
       case Colors.green:
-        _db.child("rotinas/${widget.routineTitle.toLowerCase()}/quarto/lampada-rgb/cor").set("Verde");
-      break;
+        _db
+            .child(
+                "rotinas/${widget.routineTitle.toLowerCase()}/quarto/lampada-rgb/cor")
+            .set("Verde");
+        break;
       case Colors.blue:
-        _db.child("rotinas/${widget.routineTitle.toLowerCase()}/quarto/lampada-rgb/cor").set("Azul");
-      break;
+        _db
+            .child(
+                "rotinas/${widget.routineTitle.toLowerCase()}/quarto/lampada-rgb/cor")
+            .set("Azul");
+        break;
       case Colors.orange:
-        _db.child("rotinas/${widget.routineTitle.toLowerCase()}/quarto/lampada-rgb/cor").set("Laranja");
-      break;
+        _db
+            .child(
+                "rotinas/${widget.routineTitle.toLowerCase()}/quarto/lampada-rgb/cor")
+            .set("Laranja");
+        break;
       case Colors.lightGreenAccent:
-        _db.child("rotinas/${widget.routineTitle.toLowerCase()}/quarto/lampada-rgb/cor").set("Verde Claro");
-      break;
+        _db
+            .child(
+                "rotinas/${widget.routineTitle.toLowerCase()}/quarto/lampada-rgb/cor")
+            .set("Verde Claro");
+        break;
       case Colors.lightBlueAccent:
-        _db.child("rotinas/${widget.routineTitle.toLowerCase()}/quarto/lampada-rgb/cor").set("Azul Claro");
-      break;
+        _db
+            .child(
+                "rotinas/${widget.routineTitle.toLowerCase()}/quarto/lampada-rgb/cor")
+            .set("Azul Claro");
+        break;
       case Colors.yellow:
-        _db.child("rotinas/${widget.routineTitle.toLowerCase()}/quarto/lampada-rgb/cor").set("Amarelo");
-      break;
+        _db
+            .child(
+                "rotinas/${widget.routineTitle.toLowerCase()}/quarto/lampada-rgb/cor")
+            .set("Amarelo");
+        break;
       case Colors.cyanAccent:
-        _db.child("rotinas/${widget.routineTitle.toLowerCase()}/quarto/lampada-rgb/cor").set("Ciano");
-      break;
+        _db
+            .child(
+                "rotinas/${widget.routineTitle.toLowerCase()}/quarto/lampada-rgb/cor")
+            .set("Ciano");
+        break;
       case Colors.purple:
-        _db.child("rotinas/${widget.routineTitle.toLowerCase()}/quarto/lampada-rgb/cor").set("Roxo");
-      break;
+        _db
+            .child(
+                "rotinas/${widget.routineTitle.toLowerCase()}/quarto/lampada-rgb/cor")
+            .set("Roxo");
+        break;
       default:
-        _db.child("rotinas/${widget.routineTitle.toLowerCase()}/quarto/lampada-rgb/cor").set("Branco");
-      break;
+        _db
+            .child(
+                "rotinas/${widget.routineTitle.toLowerCase()}/quarto/lampada-rgb/cor")
+            .set("Branco");
+        break;
     }
 
     setState(() {
@@ -61,64 +87,71 @@ class _RoutineLedRgbCardState extends State<RoutineLedRgbCard> {
   }
 
   Widget _buildColorPicker() => BlockPicker(
-    pickerColor: color,
-    availableColors: [
-      Colors.red,
-      Colors.green,
-      Colors.blue,
-      Colors.white,
-      Colors.orange,
-      Colors.lightGreenAccent,
-      Colors.lightBlueAccent,
-      Colors.white,
-      Colors.yellow,
-      Colors.cyanAccent,
-      Colors.purple,
-      Colors.white
-    ],
-    onColorChanged: (color) => setState(() => _changeDbColor(color) ),
-  );  
+        pickerColor: color,
+        availableColors: [
+          Colors.red,
+          Colors.green,
+          Colors.blue,
+          Colors.white,
+          Colors.orange,
+          Colors.lightGreenAccent,
+          Colors.lightBlueAccent,
+          Colors.white,
+          Colors.yellow,
+          Colors.cyanAccent,
+          Colors.purple,
+          Colors.white
+        ],
+        onColorChanged: (color) => setState(() => _changeDbColor(color)),
+      );
 
   void _pickColor(BuildContext context) => showDialog(
-    context: context,
-    builder: (context) => AlertDialog(
-      title: Text("Pick your light color"),
-      content: SingleChildScrollView(
-        physics: NeverScrollableScrollPhysics(),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            SizedBox(
-              height: 220,
-              child: _buildColorPicker(),
-            ),
-            SizedBox(height: 16),
-            TextButton(
-              child: Text(
-                "Select",
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 20,
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text("Escolha a cor"),
+          content: SingleChildScrollView(
+            physics: NeverScrollableScrollPhysics(),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                SizedBox(
+                  height: 220,
+                  child: _buildColorPicker(),
                 ),
-              ),
-            onPressed: () => Navigator.of(context).pop(),
+                SizedBox(height: 16),
+                TextButton(
+                  child: Text(
+                    "Confirmar",
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 20,
+                    ),
+                  ),
+                  onPressed: () => Navigator.of(context).pop(),
+                ),
+              ],
             ),
-          ],
+          ),
         ),
-      ),
-    ),
-  );
+      );
 
   void _getDbInfo() async {
-    final snapshot = await _db.child("rotinas/${widget.routineTitle.toLowerCase()}/quarto/lampada-rgb/on").get();
+    final snapshot = await _db
+        .child(
+            "rotinas/${widget.routineTitle.toLowerCase()}/quarto/lampada-rgb/on")
+        .get();
     if (snapshot.exists) {
       final data = snapshot.value as bool;
       setState(() {
         light = data;
-     });
+      });
     }
 
-    _db.child("rotinas/${widget.routineTitle.toLowerCase()}/quarto/lampada-rgb/on").onValue.listen((event) {
+    _db
+        .child(
+            "rotinas/${widget.routineTitle.toLowerCase()}/quarto/lampada-rgb/on")
+        .onValue
+        .listen((event) {
       final data = event.snapshot.value as bool;
       setState(() {
         light = data;
@@ -130,7 +163,7 @@ class _RoutineLedRgbCardState extends State<RoutineLedRgbCard> {
   void initState() {
     super.initState();
     _getDbInfo();
- }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -144,9 +177,8 @@ class _RoutineLedRgbCardState extends State<RoutineLedRgbCard> {
         child: Container(
           padding: EdgeInsets.all(24),
           decoration: BoxDecoration(
-            color: const Color.fromARGB(255, 241, 241, 241),
-            borderRadius: BorderRadius.circular(33)
-          ),
+              color: const Color.fromARGB(255, 241, 241, 241),
+              borderRadius: BorderRadius.circular(33)),
           child: Column(
             children: [
               Row(
@@ -161,10 +193,9 @@ class _RoutineLedRgbCardState extends State<RoutineLedRgbCard> {
                   Text(
                     "Lâmpada",
                     style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold
-                    ),  
+                        color: Colors.black,
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold),
                   )
                 ],
               ),
@@ -182,7 +213,10 @@ class _RoutineLedRgbCardState extends State<RoutineLedRgbCard> {
                         activeColor: color,
                         onChanged: (bool value) {
                           setState(() {
-                            _db.child("rotinas/${widget.routineTitle.toLowerCase()}/quarto/lampada-rgb/on").set(value);
+                            _db
+                                .child(
+                                    "rotinas/${widget.routineTitle.toLowerCase()}/quarto/lampada-rgb/on")
+                                .set(value);
                             light = value;
                           });
                         },

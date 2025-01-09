@@ -5,11 +5,7 @@ import 'package:provider/provider.dart';
 import '../../services/database_service.dart';
 
 class AcController extends StatefulWidget {
-  AcController({
-    super.key,
-    required this.isRoutine,
-    required this.routine
-    });
+  AcController({super.key, required this.isRoutine, required this.routine});
 
   bool isRoutine;
   String routine;
@@ -19,7 +15,6 @@ class AcController extends StatefulWidget {
 }
 
 class _AcControllerState extends State<AcController> {
-
   final DatabaseReference _db = FirebaseDatabase.instance.ref();
 
   Color color = Colors.lightBlueAccent;
@@ -30,45 +25,57 @@ class _AcControllerState extends State<AcController> {
   String mode = '';
 
   void _getDbInfo() async {
-    final snapshot = await _db.child("comodos/quarto/atuadores/ar-condicionado/valor").get();
+    final snapshot =
+        await _db.child("comodos/quarto/atuadores/ar-condicionado/valor").get();
     if (snapshot.exists) {
       final data = snapshot.value as int;
       setState(() {
         temperature = data.toDouble();
-     });
+      });
     }
 
-    _db.child("comodos/quarto/atuadores/ar-condicionado/valor").onValue.listen((event) {
+    _db
+        .child("comodos/quarto/atuadores/ar-condicionado/valor")
+        .onValue
+        .listen((event) {
       final data = event.snapshot.value as int;
       setState(() {
         temperature = data.toDouble();
       });
     });
 
-    final snapshot2 = await _db.child("comodos/quarto/atuadores/ar-condicionado/modo").get();
+    final snapshot2 =
+        await _db.child("comodos/quarto/atuadores/ar-condicionado/modo").get();
     if (snapshot2.exists) {
       final data = snapshot2.value as String;
       setState(() {
         mode = data;
-     });
+      });
     }
 
-    _db.child("comodos/quarto/atuadores/ar-condicionado/modo").onValue.listen((event) {
+    _db
+        .child("comodos/quarto/atuadores/ar-condicionado/modo")
+        .onValue
+        .listen((event) {
       final data = event.snapshot.value as String;
       setState(() {
         mode = data;
       });
     });
 
-    final snapshot3 = await _db.child("comodos/quarto/atuadores/ar-condicionado/index").get();
+    final snapshot3 =
+        await _db.child("comodos/quarto/atuadores/ar-condicionado/index").get();
     if (snapshot3.exists) {
       final data = snapshot3.value as int;
       setState(() {
         selectedMode = data;
-     });
+      });
     }
 
-    _db.child("comodos/quarto/atuadores/ar-condicionado/index").onValue.listen((event) {
+    _db
+        .child("comodos/quarto/atuadores/ar-condicionado/index")
+        .onValue
+        .listen((event) {
       final data = event.snapshot.value as int;
       setState(() {
         selectedMode = data;
@@ -77,45 +84,66 @@ class _AcControllerState extends State<AcController> {
   }
 
   void _getRoutineDbInfo() async {
-    final snapshot = await _db.child("rotinas/${widget.routine.toLowerCase()}/quarto/ar-condicionado/valor").get();
+    final snapshot = await _db
+        .child(
+            "rotinas/${widget.routine.toLowerCase()}/quarto/ar-condicionado/valor")
+        .get();
     if (snapshot.exists) {
       final data = snapshot.value as int;
       setState(() {
         temperature = data.toDouble();
-     });
+      });
     }
 
-    _db.child("rotinas/${widget.routine.toLowerCase()}/quarto/ar-condicionado/valor").onValue.listen((event) {
+    _db
+        .child(
+            "rotinas/${widget.routine.toLowerCase()}/quarto/ar-condicionado/valor")
+        .onValue
+        .listen((event) {
       final data = event.snapshot.value as int;
       setState(() {
         temperature = data.toDouble();
       });
     });
 
-    final snapshot2 = await _db.child("rotinas/${widget.routine.toLowerCase()}/quarto/ar-condicionado/modo").get();
+    final snapshot2 = await _db
+        .child(
+            "rotinas/${widget.routine.toLowerCase()}/quarto/ar-condicionado/modo")
+        .get();
     if (snapshot2.exists) {
       final data = snapshot2.value as String;
       setState(() {
         mode = data;
-     });
+      });
     }
 
-    _db.child("rotinas/${widget.routine.toLowerCase()}/quarto/ar-condicionado/modo").onValue.listen((event) {
+    _db
+        .child(
+            "rotinas/${widget.routine.toLowerCase()}/quarto/ar-condicionado/modo")
+        .onValue
+        .listen((event) {
       final data = event.snapshot.value as String;
       setState(() {
         mode = data;
       });
     });
 
-    final snapshot3 = await _db.child("rotinas/${widget.routine.toLowerCase()}/quarto/ar-condicionado/index").get();
+    final snapshot3 = await _db
+        .child(
+            "rotinas/${widget.routine.toLowerCase()}/quarto/ar-condicionado/index")
+        .get();
     if (snapshot3.exists) {
       final data = snapshot3.value as int;
       setState(() {
         selectedMode = data;
-     });
+      });
     }
 
-    _db.child("rotinas/${widget.routine.toLowerCase()}/quarto/ar-condicionado/index").onValue.listen((event) {
+    _db
+        .child(
+            "rotinas/${widget.routine.toLowerCase()}/quarto/ar-condicionado/index")
+        .onValue
+        .listen((event) {
       final data = event.snapshot.value as int;
       setState(() {
         selectedMode = data;
@@ -126,7 +154,7 @@ class _AcControllerState extends State<AcController> {
   @override
   void initState() {
     super.initState();
-    if(widget.isRoutine) {
+    if (widget.isRoutine) {
       _getRoutineDbInfo();
     } else {
       _getDbInfo();
@@ -139,7 +167,7 @@ class _AcControllerState extends State<AcController> {
       appBar: AppBar(
         elevation: 0,
         title: const Text(
-          "Bedroom",
+          "Quarto",
           style: TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.bold,
@@ -208,10 +236,16 @@ class _AcControllerState extends State<AcController> {
                     onChanged: (value) {
                       setState(() {
                         temperature = value;
-                        if(widget.isRoutine) {
-                          _db.child("rotinas/${widget.routine.toLowerCase()}/quarto/ar-condicionado/valor").set(temperature.toInt());
+                        if (widget.isRoutine) {
+                          _db
+                              .child(
+                                  "rotinas/${widget.routine.toLowerCase()}/quarto/ar-condicionado/valor")
+                              .set(temperature.toInt());
                         } else {
-                          _db.child("comodos/quarto/atuadores/ar-condicionado/valor").set(temperature.toInt());
+                          _db
+                              .child(
+                                  "comodos/quarto/atuadores/ar-condicionado/valor")
+                              .set(temperature.toInt());
                           _db.child("rotinas/chegada/on").set(false);
                           _db.child("rotinas/saida/on").set(false);
                         }
@@ -224,7 +258,7 @@ class _AcControllerState extends State<AcController> {
             const SizedBox(height: 48),
             // Conditioner Mode
             const Text(
-              'Conditioner Mode',
+              'Modo',
               style: TextStyle(
                 fontSize: 22,
                 fontWeight: FontWeight.bold,
@@ -238,24 +272,34 @@ class _AcControllerState extends State<AcController> {
                   onTap: () {
                     setState(() {
                       selectedMode = index;
-                       if(widget.isRoutine) {
-                          _db.child("rotinas/${widget.routine.toLowerCase()}/quarto/ar-condicionado/modo").set(_getModeName(selectedMode));
-                          _db.child("rotinas/${widget.routine.toLowerCase()}/quarto/ar-condicionado/index").set(selectedMode);
-                        } else {
-                          _db.child("comodos/quarto/atuadores/ar-condicionado/modo").set(_getModeName(selectedMode));
-                          _db.child("comodos/quarto/atuadores/ar-condicionado/index").set(selectedMode);
-                          _db.child("rotinas/chegada/on").set(false);
-                          _db.child("rotinas/saida/on").set(false);
-                        }
+                      if (widget.isRoutine) {
+                        _db
+                            .child(
+                                "rotinas/${widget.routine.toLowerCase()}/quarto/ar-condicionado/modo")
+                            .set(_getModeName(selectedMode));
+                        _db
+                            .child(
+                                "rotinas/${widget.routine.toLowerCase()}/quarto/ar-condicionado/index")
+                            .set(selectedMode);
+                      } else {
+                        _db
+                            .child(
+                                "comodos/quarto/atuadores/ar-condicionado/modo")
+                            .set(_getModeName(selectedMode));
+                        _db
+                            .child(
+                                "comodos/quarto/atuadores/ar-condicionado/index")
+                            .set(selectedMode);
+                        _db.child("rotinas/chegada/on").set(false);
+                        _db.child("rotinas/saida/on").set(false);
+                      }
                     });
                   },
                   child: Container(
                     width: 60,
                     height: 60,
                     decoration: BoxDecoration(
-                      color: selectedMode == index
-                          ? color
-                          : Colors.grey[300],
+                      color: selectedMode == index ? color : Colors.grey[300],
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: Icon(
@@ -277,14 +321,14 @@ class _AcControllerState extends State<AcController> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Auto Adjustment',
+                      'Ajuste automático',
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                     Text(
-                      'It will save energy and money',
+                      'Economizará energia e dinheiro',
                       style: TextStyle(
                         color: Colors.grey,
                       ),
