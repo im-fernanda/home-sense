@@ -9,8 +9,8 @@ class LocationService {
 
   LocationService._internal();
 
-  final double targetLatitude = -5.7740729;
-  final double targetLongitude = -35.2764059;
+  final double targetLatitude = -5.885995;
+  final double targetLongitude = -35.363265;
   bool isNearTarget = false;
 
   final DatabaseReference _db = FirebaseDatabase.instance.ref();
@@ -38,7 +38,7 @@ class LocationService {
     _positionSubscription = Geolocator.getPositionStream(
       locationSettings: const LocationSettings(
         accuracy: LocationAccuracy.high,
-        distanceFilter: 5, // Ajuste conforme necessário
+        distanceFilter: 5,
       ),
     ).listen((Position position) async {
       double distance = Geolocator.distanceBetween(
