@@ -15,6 +15,7 @@ import 'firebase_options.dart';
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   print('Background Message: ${message.notification?.title}');
 }
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
@@ -47,7 +48,7 @@ class MyApp extends StatelessWidget {
       providers: data.providers,
       child: const MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'House Sense',
+        title: 'Home Sense',
         home: AuthChecker(),
       ),
     );
